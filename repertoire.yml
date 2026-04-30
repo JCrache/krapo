@@ -1,0 +1,34 @@
+# Répertoire de la fanfare Les Krapos
+# ------------------------------------
+# Format de chaque morceau :
+#   - nom: "..."             (obligatoire)
+#     type: debut|teuf|connu|choree|chill|rappel|standard   (optionnel, défaut: standard)
+#     tags: [rappel, choree, nouveau, ...]                  (optionnel, liste de tags additionnels)
+#     fatigant: "instrument" (optionnel, chaîne ; non vide => interdit en 2e moitié de set)
+#
+# Tag spécial "nouveau" : marque un morceau récemment ajouté, peu maîtrisé.
+# Inclus dans les set-lists uniquement si la case « Inclure les nouveaux morceaux » est cochée.
+#
+# Voir README.md pour le détail des catégories et des règles.
+
+morceaux:
+  # === Exemples (à remplacer par le vrai répertoire) ===
+
+  - nom: "Ouverture Krapo"
+    type: debut
+
+  - nom: "Jungle Boogie"
+    type: teuf
+    tags: [rappel]
+    fatigant: "trompette"
+
+  - nom: "Disco Inferno"
+    type: choree
+    tags: [connu]
+
+  - nom: "Sieste à l'ombre"
+    type: chill
+
+  - nom: "Petit Nouveau"
+    type: standard
+    tags: [nouveau]

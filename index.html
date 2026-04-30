@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Set-Lists — Les Krapos</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="container">
+    <h1>🐸✨ Les Krapos — Générateur de Set-Lists</h1>
+    <p>Génère des set-lists aléatoires à partir du répertoire de la fanfare.</p>
+  </header>
+
+  <main class="container">
+    <section id="config">
+      <form id="form-config" onsubmit="return false;">
+        <fieldset>
+          <legend>Configuration</legend>
+          <label>
+            Nombre de set-lists
+            <input type="number" id="nb-setlists" min="1" max="10" value="1">
+          </label>
+          <label>
+            Taille d'une set-list
+            <input type="number" id="taille-setlist" min="3" max="30" value="10">
+          </label>
+          <label>
+            <input type="checkbox" id="cb-nouveaux">
+            Inclure les nouveaux morceaux
+          </label>
+        </fieldset>
+        <button type="button" id="btn-generer">Générer les set-lists</button>
+      </form>
+    </section>
+
+    <div id="alerte" class="alerte" hidden></div>
+
+    <section id="resultats"></section>
+
+    <section id="nouveaux-section" hidden>
+      <h2>Nouveaux morceaux</h2>
+      <p class="section-help">Morceaux récemment ajoutés au répertoire (cochez la case pour les inclure dans les set-lists).</p>
+      <ul id="liste-nouveaux" class="liste-extra"></ul>
+    </section>
+
+    <section id="non-utilises-section" hidden>
+      <h2>Morceaux non utilisés</h2>
+      <p class="section-help">Morceaux du répertoire absents des set-lists générées, regroupés par catégorie.</p>
+      <div id="liste-non-utilises"></div>
+    </section>
+  </main>
+
+  <footer class="container">
+    <small>Répertoire chargé depuis <code>repertoire.yml</code></small>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4/dist/js-yaml.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
