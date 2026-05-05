@@ -99,9 +99,9 @@
     return Array.isArray(m.tags) && m.tags.includes("pas-debut");
   }
 
-  // Interdit en 2e moitié = fatigant OU tricote.
+  // Interdit en 2e moitié = fatigant uniquement.
   function interditEnFinDeSet(m) {
-    return estFatigant(m) || estTricote(m);
+    return estFatigant(m);
   }
 
   function estNouveau(m) {
@@ -179,20 +179,23 @@
     if (prefererNouveaux) poolMelange = prioriserNouveaux(poolMelange);
     let dernierType = mDebut ? mDebut.type : null;
     let dernierEtaitChoree = mDebut ? aCategorie(mDebut, "choree") : false;
+    let dernierEtaitTricote = mDebut ? estTricote(mDebut) : false;
 
     for (let pos = 2; pos <= taille - 1; pos++) {
       if (poolMelange.length === 0) break;
 
       const enDeuxiemeMoitie = pos > seuilDeuxiemeMoitie;
 
-      // Préférence : type différent + pas choree consécutive + pas fatigant/tricote en 2e moitié
+      // Préférence : type différent + pas choree/tricote consécutif + pas fatigant en 2e moitié
       const preferences = [
         (m) =>
           m.type !== dernierType &&
           !(dernierEtaitChoree && aCategorie(m, "choree")) &&
+          !(dernierEtaitTricote && estTricote(m)) &&
           (!enDeuxiemeMoitie || !interditEnFinDeSet(m)),
         (m) =>
           !(dernierEtaitChoree && aCategorie(m, "choree")) &&
+          !(dernierEtaitTricote && estTricote(m)) &&
           (!enDeuxiemeMoitie || !interditEnFinDeSet(m)),
         (m) => !enDeuxiemeMoitie || !interditEnFinDeSet(m),
         () => true,
@@ -210,7 +213,7 @@
       // Avertir si on a dû enfreindre une contrainte forte
       if (enDeuxiemeMoitie && interditEnFinDeSet(choisi)) {
         avertissements.push(
-          `Morceau fatigant/tricoté placé en 2e moitié faute d'alternative : « ${choisi.nom} »`
+          `Morceau fatigant placé en 2e moitié faute d'alternative : « ${choisi.nom} »`
         );
       }
       if (dernierEtaitChoree && aCategorie(choisi, "choree")) {
@@ -218,10 +221,16 @@
           `Deux morceaux « chorée » consécutifs faute d'alternative : « ${choisi.nom} »`
         );
       }
+      if (dernierEtaitTricote && estTricote(choisi)) {
+        avertissements.push(
+          `Deux morceaux « tricoté » consécutifs faute d'alternative : « ${choisi.nom} »`
+        );
+      }
 
       milieu.push(choisi);
       dernierType = choisi.type;
       dernierEtaitChoree = aCategorie(choisi, "choree");
+      dernierEtaitTricote = estTricote(choisi);
     }
 
     // Assemblage
