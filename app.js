@@ -53,6 +53,7 @@
       type: m.type || "standard",
       tags: Array.isArray(m.tags) ? m.tags : [],
       fatigant: typeof m.fatigant === "string" ? m.fatigant : "",
+      tricote: typeof m.tricote === "string" ? m.tricote : "",
     };
   }
 
@@ -89,6 +90,20 @@
     return typeof m.fatigant === "string" && m.fatigant.trim() !== "";
   }
 
+  function estTricote(m) {
+    return typeof m.tricote === "string" && m.tricote.trim() !== "";
+  }
+
+  // Un morceau ne doit pas être en position 1 s'il a le tag "pas-debut".
+  function estPasDebut(m) {
+    return Array.isArray(m.tags) && m.tags.includes("pas-debut");
+  }
+
+  // Interdit en 2e moitié = fatigant OU tricote.
+  function interditEnFinDeSet(m) {
+    return estFatigant(m) || estTricote(m);
+  }
+
   function estNouveau(m) {
     return Array.isArray(m.tags) && m.tags.includes(TAG_NOUVEAU);
   }
@@ -119,11 +134,14 @@
       return pickRandom(candidats);
     };
 
-    // Position 1 : début
-    let debuts = dispo("debut");
+    // Position 1 : début (exclure les morceaux taggés "pas-debut")
+    let debuts = dispo("debut", (m) => !estPasDebut(m));
     if (debuts.length === 0) {
       avertissements.push("Pas assez de morceaux « debut » disponibles.");
-      debuts = morceauxDispo.filter((m) => aCategorie(m, "debut"));
+      debuts = morceauxDispo.filter((m) => aCategorie(m, "debut") && !estPasDebut(m));
+      if (debuts.length === 0) {
+        debuts = morceauxDispo.filter((m) => aCategorie(m, "debut"));
+      }
     }
     const mDebut = choisirAvecPref(debuts);
 
@@ -167,30 +185,16 @@
 
       const enDeuxiemeMoitie = pos > seuilDeuxiemeMoitie;
 
-      // Construire les contraintes successives, du plus strict au plus lâche
-      const contraintes = [
-        // 1) tout
-        (m) => true,
-        // 2) ignorer la contrainte « type différent » mais garder choree/fatigant
-        (m) =>
-          (!enDeuxiemeMoitie || !estFatigant(m)) &&
-          !(dernierEtaitChoree && aCategorie(m, "choree")),
-        // 3) ignorer aussi la contrainte choree
-        (m) => !enDeuxiemeMoitie || !estFatigant(m),
-        // 4) tout accepter en dernier recours
-        () => true,
-      ];
-
-      // Préférence : type différent + pas choree consécutive + pas fatigant en 2e moitié
+      // Préférence : type différent + pas choree consécutive + pas fatigant/tricote en 2e moitié
       const preferences = [
         (m) =>
           m.type !== dernierType &&
           !(dernierEtaitChoree && aCategorie(m, "choree")) &&
-          (!enDeuxiemeMoitie || !estFatigant(m)),
+          (!enDeuxiemeMoitie || !interditEnFinDeSet(m)),
         (m) =>
           !(dernierEtaitChoree && aCategorie(m, "choree")) &&
-          (!enDeuxiemeMoitie || !estFatigant(m)),
-        (m) => !enDeuxiemeMoitie || !estFatigant(m),
+          (!enDeuxiemeMoitie || !interditEnFinDeSet(m)),
+        (m) => !enDeuxiemeMoitie || !interditEnFinDeSet(m),
         () => true,
       ];
 
@@ -204,9 +208,9 @@
       const choisi = poolMelange.splice(idx, 1)[0];
 
       // Avertir si on a dû enfreindre une contrainte forte
-      if (enDeuxiemeMoitie && estFatigant(choisi)) {
+      if (enDeuxiemeMoitie && interditEnFinDeSet(choisi)) {
         avertissements.push(
-          `Morceau fatigant placé en 2e moitié faute d'alternative : « ${choisi.nom} »`
+          `Morceau fatigant/tricoté placé en 2e moitié faute d'alternative : « ${choisi.nom} »`
         );
       }
       if (dernierEtaitChoree && aCategorie(choisi, "choree")) {
@@ -384,6 +388,12 @@
         b.className = "badge badge-nouveau";
         b.textContent = "nouveau";
         li.appendChild(b);
+      } else if (t === "pas-debut") {
+        const b = document.createElement("span");
+        b.className = "badge badge-pas-debut";
+        b.title = "Ne doit pas être en première position";
+        b.textContent = "⚡ pas en 1er";
+        li.appendChild(b);
       } else if (TYPES_CONNUS.includes(t) && t !== m.type) {
         const b = document.createElement("span");
         b.className = `badge badge-${t} badge-tag`;
@@ -399,7 +409,13 @@
       fat.textContent = `💤 ${m.fatigant}`;
       li.appendChild(fat);
     }
-
+    if (estTricote(m)) {
+      const tri = document.createElement("span");
+      tri.className = "badge badge-tricote";
+      tri.title = `Tricoté (difficile au sax) : ${m.tricote}`;
+      tri.textContent = `🎷 ${m.tricote}`;
+      li.appendChild(tri);
+    }
     return li;
   }
 
@@ -434,6 +450,12 @@
           b.className = "badge badge-nouveau";
           b.textContent = "nouveau";
           li.appendChild(b);
+        } else if (t === "pas-debut") {
+          const b = document.createElement("span");
+          b.className = "badge badge-pas-debut";
+          b.title = "Ne doit pas être en première position";
+          b.textContent = "⚡ pas en 1er";
+          li.appendChild(b);
         } else if (TYPES_CONNUS.includes(t) && t !== m.type) {
           const tagBadge = document.createElement("span");
           tagBadge.className = `badge badge-${t} badge-tag`;
@@ -449,6 +471,15 @@
         fat.title = `Fatigant : ${m.fatigant}`;
         fat.textContent = `💤 ${m.fatigant}`;
         li.appendChild(fat);
+      }
+
+      // Marqueur tricoté
+      if (estTricote(m)) {
+        const tri = document.createElement("span");
+        tri.className = "badge badge-tricote";
+        tri.title = `Tricoté (difficile au sax) : ${m.tricote}`;
+        tri.textContent = `🎷 ${m.tricote}`;
+        li.appendChild(tri);
       }
 
       ol.appendChild(li);

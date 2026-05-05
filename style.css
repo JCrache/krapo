@@ -51,6 +51,25 @@ html, body {
 }
 
 /* === En-tête === */
+#header-inner {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+#logo {
+  height: 80px;
+  width: auto;
+  flex-shrink: 0;
+  border-radius: 8px;
+}
+
+#header-text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
 header h1 {
   background: linear-gradient(90deg, var(--jungle-light), var(--gold), var(--orange));
   -webkit-background-clip: text;
@@ -58,10 +77,31 @@ header h1 {
   color: transparent;
   font-weight: 800;
   letter-spacing: 0.02em;
+  margin-bottom: 0.1em;
 }
 
 header p {
   color: var(--text-muted);
+  margin-bottom: 0;
+}
+
+/* Sur grand écran : logo flottant à gauche, contenu qui s'enroule autour */
+@media (min-width: 900px) {
+  #logo {
+    height: 110px;
+    float: left;
+    margin: 0 1.5rem 0.5rem 0;
+    border-radius: 12px;
+    shape-outside: margin-box;
+  }
+  #header-inner {
+    display: block; /* laisser le float agir */
+  }
+  #header-inner::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
 }
 
 /* === Liens === */
@@ -164,6 +204,19 @@ footer {
   background-color: transparent;
   color: var(--orange);
   border: 1px dashed var(--orange);
+}
+
+.badge-tricote {
+  background-color: transparent;
+  color: var(--gold);
+  border: 1px dashed var(--gold);
+}
+
+.badge-pas-debut {
+  background-color: transparent;
+  color: #888;
+  border: 1px dashed #555;
+  font-size: 0.65rem;
 }
 
 .badge-nouveau {
