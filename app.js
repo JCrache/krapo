@@ -8,6 +8,7 @@
   const nbSetlistsInput = document.getElementById("nb-setlists");
   const tailleSetlistInput = document.getElementById("taille-setlist");
   const cbNouveaux = document.getElementById("cb-nouveaux");
+  const cbUneBasse = document.getElementById("cb-une-basse");
   const btnGenerer = document.getElementById("btn-generer");
   const alerteDiv = document.getElementById("alerte");
   const resultatsDiv = document.getElementById("resultats");
@@ -54,6 +55,7 @@
       tags: Array.isArray(m.tags) ? m.tags : [],
       fatigant: typeof m.fatigant === "string" ? m.fatigant : "",
       tricote: typeof m.tricote === "string" ? m.tricote : "",
+      deuxBasses: !!m["deux-basses"],
     };
   }
 
@@ -99,9 +101,19 @@
     return Array.isArray(m.tags) && m.tags.includes("pas-debut");
   }
 
-  // Interdit en 2e moitié = fatigant uniquement.
+  // Interdit en 2e moitié = fatigant, ou type principal "debut".
   function interditEnFinDeSet(m) {
-    return estFatigant(m);
+    return estFatigant(m) || m.type === "debut";
+  }
+
+  // Interdit en 1re moitié = type principal "teuf".
+  function interditEnDebutDeSet(m) {
+    return m.type === "teuf";
+  }
+
+  // Un morceau de type principal "rappel" ne peut être qu'en dernière position.
+  function estRappelExclusif(m) {
+    return m.type === "rappel";
   }
 
   function estNouveau(m) {
@@ -118,9 +130,16 @@
     const avertissements = [];
     const nonUtilises = (m) => !morceauxUtilises.has(m.nom);
 
+    // places grandit au fur et à mesure des choix ; dispo l'exclut dès le début.
+    const places = new Set();
+
     const dispo = (cat, extraFiltre) =>
       morceauxDispo.filter(
-        (m) => aCategorie(m, cat) && nonUtilises(m) && (!extraFiltre || extraFiltre(m))
+        (m) =>
+          aCategorie(m, cat) &&
+          nonUtilises(m) &&
+          !places.has(m.nom) &&
+          (!extraFiltre || extraFiltre(m))
       );
 
     // Si on préfère les nouveaux, on filtre d'abord sur les nouveaux ; sinon repli
@@ -138,35 +157,34 @@
     let debuts = dispo("debut", (m) => !estPasDebut(m));
     if (debuts.length === 0) {
       avertissements.push("Pas assez de morceaux « debut » disponibles.");
-      debuts = morceauxDispo.filter((m) => aCategorie(m, "debut") && !estPasDebut(m));
+      debuts = morceauxDispo.filter(
+        (m) => aCategorie(m, "debut") && !places.has(m.nom) && !estPasDebut(m)
+      );
       if (debuts.length === 0) {
-        debuts = morceauxDispo.filter((m) => aCategorie(m, "debut"));
+        debuts = morceauxDispo.filter((m) => aCategorie(m, "debut") && !places.has(m.nom));
       }
     }
     const mDebut = choisirAvecPref(debuts);
+    if (mDebut) places.add(mDebut.nom); // exclu dès maintenant pour le choix de mTeuf
 
     // Dernière position : teuf, de préférence aussi rappel
     const teufRappels = dispo("teuf", (m) => aCategorie(m, "rappel"));
     let teufs = teufRappels.length > 0 ? teufRappels : dispo("teuf");
     if (teufs.length === 0) {
       avertissements.push("Pas assez de morceaux « teuf » disponibles.");
-      teufs = morceauxDispo.filter((m) => aCategorie(m, "teuf"));
+      teufs = morceauxDispo.filter((m) => aCategorie(m, "teuf") && !places.has(m.nom));
     }
     const mTeuf = choisirAvecPref(teufs);
-
-    // Morceaux déjà placés dans cette set-list
-    const places = new Set();
-    if (mDebut) places.add(mDebut.nom);
     if (mTeuf) places.add(mTeuf.nom);
 
-    // Pool restant
+    // Pool restant : exclure aussi les morceaux de type "rappel" (réservés à la dernière position)
     let pool = morceauxDispo.filter(
-      (m) => !places.has(m.nom) && nonUtilises(m)
+      (m) => !places.has(m.nom) && nonUtilises(m) && !estRappelExclusif(m)
     );
 
     const nbMilieu = Math.max(0, taille - (mDebut ? 1 : 0) - (mTeuf ? 1 : 0));
     if (pool.length < nbMilieu) {
-      pool = morceauxDispo.filter((m) => !places.has(m.nom));
+      pool = morceauxDispo.filter((m) => !places.has(m.nom) && !estRappelExclusif(m));
     }
 
     // Indice de la « 2e moitié » : positions strictement > taille/2
@@ -185,19 +203,28 @@
       if (poolMelange.length === 0) break;
 
       const enDeuxiemeMoitie = pos > seuilDeuxiemeMoitie;
+      const enPremiereMotie = pos <= seuilDeuxiemeMoitie;
 
-      // Préférence : type différent + pas choree/tricote consécutif + pas fatigant en 2e moitié
+      // Contrainte de placement par type principal :
+      //   - type "debut" → uniquement en 1re moitié
+      //   - type "teuf"  → uniquement en 2e moitié
+      //   - fatigant     → uniquement en 1re moitié
+      const respectePlacement = (m) =>
+        (!enDeuxiemeMoitie || !interditEnFinDeSet(m)) &&
+        (!enPremiereMotie || !interditEnDebutDeSet(m));
+
+      // Préférence : type différent + pas choree/tricote consécutif + placement respecté
       const preferences = [
         (m) =>
           m.type !== dernierType &&
           !(dernierEtaitChoree && aCategorie(m, "choree")) &&
           !(dernierEtaitTricote && estTricote(m)) &&
-          (!enDeuxiemeMoitie || !interditEnFinDeSet(m)),
+          respectePlacement(m),
         (m) =>
           !(dernierEtaitChoree && aCategorie(m, "choree")) &&
           !(dernierEtaitTricote && estTricote(m)) &&
-          (!enDeuxiemeMoitie || !interditEnFinDeSet(m)),
-        (m) => !enDeuxiemeMoitie || !interditEnFinDeSet(m),
+          respectePlacement(m),
+        (m) => respectePlacement(m),
         () => true,
       ];
 
@@ -213,7 +240,12 @@
       // Avertir si on a dû enfreindre une contrainte forte
       if (enDeuxiemeMoitie && interditEnFinDeSet(choisi)) {
         avertissements.push(
-          `Morceau fatigant placé en 2e moitié faute d'alternative : « ${choisi.nom} »`
+          `Morceau interdit en 2e moitié placé faute d'alternative : « ${choisi.nom} »`
+        );
+      }
+      if (enPremiereMotie && interditEnDebutDeSet(choisi)) {
+        avertissements.push(
+          `Morceau interdit en 1re moitié placé faute d'alternative : « ${choisi.nom} »`
         );
       }
       if (dernierEtaitChoree && aCategorie(choisi, "choree")) {
@@ -258,6 +290,7 @@
       Math.min(30, parseInt(tailleSetlistInput.value, 10) || 10)
     );
     const inclureNouveaux = cbNouveaux.checked;
+    const uneSeuleBasse = cbUneBasse.checked;
 
     if (repertoire.length === 0) {
       afficherAlerte("Le répertoire est vide.");
@@ -265,15 +298,18 @@
       return;
     }
 
-    // Pool éligible aux set-lists : sans les nouveaux si la case n'est pas cochée.
-    const repertoireEligible = inclureNouveaux
+    // Pool éligible aux set-lists : sans les nouveaux si la case n'est pas cochée,
+    // sans les morceaux deux-basses si une seule basse.
+    let repertoireEligible = inclureNouveaux
       ? repertoire
       : repertoire.filter((m) => !estNouveau(m));
+    if (uneSeuleBasse) {
+      repertoireEligible = repertoireEligible.filter((m) => !m.deuxBasses);
+    }
 
     if (repertoireEligible.length === 0) {
       afficherAlerte(
-        "Aucun morceau éligible (tout le répertoire est marqué « nouveau »). " +
-          "Cochez « Inclure les nouveaux morceaux »."
+        "Aucun morceau éligible avec la configuration actuelle."
       );
       afficherSectionsAnnexes(new Set(), inclureNouveaux);
       return;
@@ -425,6 +461,13 @@
       tri.textContent = `🎷 ${m.tricote}`;
       li.appendChild(tri);
     }
+    if (m.deuxBasses) {
+      const db = document.createElement("span");
+      db.className = "badge badge-deux-basses";
+      db.title = "Nécessite 2 basses";
+      db.textContent = "🎸🎸";
+      li.appendChild(db);
+    }
     return li;
   }
 
@@ -489,6 +532,15 @@
         tri.title = `Tricoté (difficile au sax) : ${m.tricote}`;
         tri.textContent = `🎷 ${m.tricote}`;
         li.appendChild(tri);
+      }
+
+      // Marqueur deux basses
+      if (m.deuxBasses) {
+        const db = document.createElement("span");
+        db.className = "badge badge-deux-basses";
+        db.title = "Nécessite 2 basses";
+        db.textContent = "🎸🎸";
+        li.appendChild(db);
       }
 
       ol.appendChild(li);

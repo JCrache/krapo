@@ -207,6 +207,7 @@ morceaux:
     tags: [teuf]
     fatigant: ""
     tricote: ""
+    deux-basses: true
 
   - nom: "Shanti"
     type: standard
