@@ -101,8 +101,8 @@ morceaux:
     tricote: ""
 
   - nom: "Goldfish"
-    type: nouveau
-    tags: [standard]
+    type: standard
+    tags: [nouveau]
     fatigant: ""
     tricote: ""
 
