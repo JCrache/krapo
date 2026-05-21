@@ -1,8 +1,9 @@
 (function () {
   "use strict";
 
-  // ── State ──────────────────────────────────────────────────────────
-  let repertoire = []; // tableau de { nom, type, tags?, fatigant? }
+  // ── State (état de la dernière génération pour la copie) ────────────────
+  let repertoire = []; // tableau de { nom, type, tags?, fatigant?, discord? }
+  let dernieresSetlists = []; // stocke les set-lists générées pour la copie
 
   // ── DOM refs ───────────────────────────────────────────────────────
   const nbSetlistsInput = document.getElementById("nb-setlists");
@@ -56,6 +57,7 @@
       fatigant: typeof m.fatigant === "string" ? m.fatigant : "",
       tricote: typeof m.tricote === "string" ? m.tricote : "",
       deuxBasses: !!m["deux-basses"],
+      discord: typeof m.discord === "string" ? m.discord : "",
     };
   }
 
@@ -280,6 +282,9 @@
   function genererToutesSetlists() {
     cacherAlerte();
     resultatsDiv.innerHTML = "";
+    // Retirer les boutons globaux de la passe précédente
+    const ancienGlobal = document.getElementById("copie-globale");
+    if (ancienGlobal) ancienGlobal.remove();
 
     const nbSetlists = Math.max(
       1,
@@ -354,6 +359,10 @@
     for (let i = 0; i < setlists.length; i++) {
       resultatsDiv.appendChild(creerCarteSetlist(i + 1, setlists[i]));
     }
+
+    // Stocker pour la copie globale et afficher les boutons globaux
+    dernieresSetlists = setlists;
+    afficherBoutonsGlobaux(setlists);
 
     afficherSectionsAnnexes(nomsPlaces, inclureNouveaux);
   }
@@ -471,13 +480,101 @@
     return li;
   }
 
+  // ── Copie dans le presse-papiers ─────────────────────────────────
+  function copierTexte(texte, bouton) {
+    navigator.clipboard.writeText(texte).then(() => {
+      const ancien = bouton.textContent;
+      bouton.textContent = "✓";
+      bouton.classList.add("copie-ok");
+      setTimeout(() => {
+        bouton.textContent = ancien;
+        bouton.classList.remove("copie-ok");
+      }, 1500);
+    });
+  }
+
+  function texteSetlistNoms(setlist) {
+    return setlist.map((m) => m.nom).join("\n");
+  }
+
+  function texteSetlistDiscord(setlist) {
+    return setlist.map((m) => m.discord ? `<#${m.discord}>` : m.nom).join("\n");
+  }
+
+  function texteToutesNoms(setlists) {
+    return setlists
+      .map((sl, i) => `Set ${i + 1}\n${texteSetlistNoms(sl)}`)
+      .join("\n\n");
+  }
+
+  function texteToutesDiscord(setlists) {
+    return setlists
+      .map((sl, i) => `Set ${i + 1}\n${texteSetlistDiscord(sl)}`)
+      .join("\n\n");
+  }
+
+  function afficherBoutonsGlobaux(setlists) {
+    // Retirer les anciens boutons globaux s'ils existent
+    const ancien = document.getElementById("copie-globale");
+    if (ancien) ancien.remove();
+
+    if (setlists.length === 0) return;
+
+    const div = document.createElement("div");
+    div.id = "copie-globale";
+    div.className = "copie-globale";
+
+    const btnNoms = document.createElement("button");
+    btnNoms.className = "btn-copier btn-copier-noms";
+    btnNoms.title = "Copier toutes les set-lists (noms)";
+    btnNoms.textContent = "📋 Copier tout";
+    btnNoms.addEventListener("click", () => copierTexte(texteToutesNoms(setlists), btnNoms));
+    div.appendChild(btnNoms);
+
+    const btnDiscord = document.createElement("button");
+    btnDiscord.className = "btn-copier btn-copier-discord";
+    btnDiscord.title = "Copier toutes les set-lists (liens Discord #)";
+    btnDiscord.textContent = "# Copier tout";
+    btnDiscord.addEventListener("click", () => copierTexte(texteToutesDiscord(setlists), btnDiscord));
+    div.appendChild(btnDiscord);
+
+    // Insérer juste avant la section résultats
+    resultatsDiv.parentNode.insertBefore(div, resultatsDiv);
+  }
+
   // ── Rendu ──────────────────────────────────────────────────────────
   function creerCarteSetlist(numero, setlist) {
     const article = document.createElement("article");
 
-    const titre = document.createElement("header");
-    titre.textContent = `Set-list ${numero}`;
-    article.appendChild(titre);
+    const headerEl = document.createElement("header");
+
+    const titreSpan = document.createElement("span");
+    titreSpan.textContent = `Set-list ${numero}`;
+    headerEl.appendChild(titreSpan);
+
+    const btnsDiv = document.createElement("span");
+    btnsDiv.className = "carte-btns";
+
+    const btnCopierNoms = document.createElement("button");
+    btnCopierNoms.className = "btn-copier btn-copier-noms";
+    btnCopierNoms.title = "Copier les noms des morceaux";
+    btnCopierNoms.textContent = "📋";
+    btnCopierNoms.addEventListener("click", () =>
+      copierTexte(texteSetlistNoms(setlist), btnCopierNoms)
+    );
+    btnsDiv.appendChild(btnCopierNoms);
+
+    const btnCopierDiscord = document.createElement("button");
+    btnCopierDiscord.className = "btn-copier btn-copier-discord";
+    btnCopierDiscord.title = "Copier les liens Discord (#)";
+    btnCopierDiscord.textContent = "#";
+    btnCopierDiscord.addEventListener("click", () =>
+      copierTexte(texteSetlistDiscord(setlist), btnCopierDiscord)
+    );
+    btnsDiv.appendChild(btnCopierDiscord);
+
+    headerEl.appendChild(btnsDiv);
+    article.appendChild(headerEl);
 
     const ol = document.createElement("ol");
     for (const m of setlist) {

@@ -6,6 +6,7 @@
 #     tags: [debut, teuf, connu, choree, chill, rappel, nouveau, pas-debut]  (optionnel)
 #     fatigant: "instrument" (optionnel, chaîne ; non vide => interdit en 2e moitié de set)
 #     tricote: "instrument"  (optionnel, chaîne ; non vide => difficile au sax, interdit en 2e moitié)
+#     discord: "1234567890"  (optionnel, id du salon Discord associé au morceau)
 #
 # Tag spécial "nouveau" : marque un morceau récemment ajouté, peu maîtrisé.
 # Inclus dans les set-lists uniquement si la case « Inclure les nouveaux morceaux » est cochée.
@@ -21,186 +22,225 @@ morceaux:
     tags: [debut, chill]
     fatigant: ""
     tricote: "sax"
+    discord: "1000359811281600622"
 
   - nom: "Biffy"
     type: standard
     tags: [debut, teuf, rappel]
     fatigant: ""
     tricote: ""
+    discord: "1000802984780898334"
 
   - nom: "Bonfire"
     type: standard
     tags: [debut]
     fatigant: ""
     tricote: ""
+    discord: "1000803027030126753"
 
   - nom: "Canned Heat"
     type: choree
     tags: []
     fatigant: ""
     tricote: ""
+    discord: "1000803114422653109"
+
+  - nom: "Chirouble"
+    type: standard
+    tags: []
+    fatigant: ""
+    tricote: ""
+    discord: "1428766357973106930"
 
   - nom: "Daft Punk"
     type: teuf
     tags: [rappel, connu]
     fatigant: ""
     tricote: ""
+    discord: "1000803220509163631"
 
   - nom: "D.a.n.c.e"
     type: standard
     tags: [connu]
     fatigant: ""
     tricote: ""
+    discord: "1000803358883450890"
 
   - nom: "Day Break"
     type: standard
     tags: [debut, connu, chill]
     fatigant: ""
     tricote: ""
+    discord: "1000803417029087252"
 
   - nom: "DjiDji"
     type: connu
     tags: []
     fatigant: ""
     tricote: ""
+    discord: "1000803499250036796"
 
   - nom: "Foals"
     type: standard
     tags: []
     fatigant: ""
     tricote: ""
+    discord: "1000803542644314253"
 
   - nom: "Fuya"
     type: chill
     tags: [choree]
     fatigant: ""
     tricote: ""
+    discord: "1000803580216889444"
 
   - nom: "Ghost in the Shell"
     type: chill
     tags: []
     fatigant: ""
     tricote: ""
+    discord: "1000803785989431376"
 
   - nom: "Giorgio"
     type: standard
     tags: [chill, connu]
     fatigant: ""
     tricote: ""
+    discord: "1000803861205897326"
 
   - nom: "Gnossienne"
     type: rappel
     tags: []
     fatigant: ""
     tricote: ""
+    discord: "1000803930185420861"
 
   - nom: "Going the Distance"
     type: chill
     tags: [debut, connu]
     fatigant: ""
     tricote: ""
+    discord: "1000804209429590057"
 
   - nom: "Goldfish"
     type: standard
     tags: [nouveau]
     fatigant: ""
     tricote: ""
+    discord: "1416889754791968798"
 
   - nom: "Helicopter"
     type: standard
     tags: [choree]
     fatigant: ""
     tricote: ""
+    discord: "1000804274332254358"
 
   - nom: "Hybrid Stigmata"
     type: standard
     tags: []
     fatigant: ""
     tricote: ""
+    discord: "1000804358511919266"
 
   - nom: "I feel love"
     type: standard
     tags: []
     fatigant: ""
     tricote: ""
+    discord: "1255565807568683088"
 
   - nom: "Lone Digger"
     type: standard
     tags: [connu]
     fatigant: ""
     tricote: ""
+    discord: "1000804508202450984"
 
   - nom: "Magnolias forever"
     type: connu
     tags: []
     fatigant: "tp"
     tricote: ""
+    discord: "1000804577580437625"
 
   - nom: "Major Lazer"
     type: chill
     tags: [connu, choree]
     fatigant: ""
     tricote: ""
+    discord: "1000804637282148402"
 
   - nom: "Maniac"
     type: choree
     tags: [connu]
     fatigant: ""
     tricote: ""
+    discord: "1149107908802527393"
 
   - nom: "Medley Jimmy"
     type: connu
     tags: []
     fatigant: ""
     tricote: ""
+    discord: "1000804715136819290"
 
-  - nom: "MEGAMAN"
+  - nom: "Megaman"
     type: teuf
     tags: [rappel]
     fatigant: ""
     tricote: ""
+    discord: "1000804764143067227"
 
   - nom: "Mexican"
     type: debut
     tags: [chill]
     fatigant: ""
     tricote: ""
+    discord: "1223030986292465686"
 
   - nom: "Mushroom"
     type: teuf
     tags: [rappel]
     fatigant: ""
     tricote: ""
+    discord: "1232317636273246219"
 
   - nom: "Nothing Else Matters"
     type: chill
     tags: [connu]
     fatigant: ""
     tricote: ""
-
-  - nom: "Pressure in my head"
-    type: standard
-    tags: []
-    fatigant: ""
-    tricote: ""
+    deux-basses: true
+    discord: "1000804829439987863"
 
   - nom: "Pony"
     type: standard
     tags: []
     fatigant: ""
     tricote: ""
+    discord: "1288246838666985532"
+
+  - nom: "Pressure in my head"
+    type: standard
+    tags: []
+    fatigant: ""
+    tricote: ""
+    discord: "1000804890454540310"
 
   - nom: "Radio Video"
     type: teuf
     tags: [rappel]
     fatigant: ""
     tricote: ""
+    discord: "1000804953322967101"
 
   - nom: "Rodrigo"
     type: standard
     tags: [choree, pas-debut]
     fatigant: "basse"
     tricote: ""
+    discord: "1000805052962852904"
 
   - nom: "Schrodinger"
     type: standard
@@ -208,81 +248,102 @@ morceaux:
     fatigant: ""
     tricote: ""
     deux-basses: true
+    discord: "1000805121590054952"
 
   - nom: "Shanti"
     type: standard
     tags: [teuf]
     fatigant: ""
     tricote: ""
+    discord: "1000805199260164146"
 
   - nom: "Sledge"
     type: standard
     tags: [pas-debut]
     fatigant: ""
     tricote: ""
+    discord: "1168859027502018601"
 
   - nom: "Starlight"
     type: connu
     tags: [choree]
     fatigant: ""
     tricote: ""
+    discord: "1000805409554190368"
 
   - nom: "Sur la planche"
     type: teuf
     tags: [teuf, connu, choree, chill, rappel]
     fatigant: ""
     tricote: ""
+    discord: "1000805474997911613"
 
   - nom: "The Bay"
     type: debut
     tags: [chill]
     fatigant: ""
     tricote: ""
+    discord: "1000805605365264415"
 
   - nom: "Thunderstruck"
     type: connu
     tags: []
     fatigant: ""
     tricote: ""
+    discord: "1000805664307818656"
 
   - nom: "Time is running out"
     type: nouveau
     tags: []
     fatigant: ""
     tricote: ""
+    discord: "1443555395695153172"
 
   - nom: "Toccata"
     type: teuf
     tags: []
     fatigant: ""
     tricote: ""
+    discord: "1000805713020469429"
 
   - nom: "Tous les memes"
     type: debut
     tags: []
     fatigant: ""
     tricote: ""
+    discord: "1000805759736631347"
 
   - nom: "Turbo Killer"
     type: teuf
     tags: []
     fatigant: ""
     tricote: ""
+    discord: "1000805829810856137"
 
   - nom: "Uptown Funk"
     type: connu
     tags: [choree, chill]
     fatigant: ""
     tricote: ""
+    discord: "1000805885100167168"
 
   - nom: "War"
     type: choree
     tags: [chill]
     fatigant: ""
     tricote: ""
+    discord: "1000805992554037459"
 
   - nom: "Whisper to me"
     type: standard
     tags: []
     fatigant: ""
     tricote: ""
+    discord: "1389218207004491887"
+
+  - nom: "Womanizer"
+    type: connu
+    tags: [chorée, debut]
+    fatigant: ""
+    tricote: ""
+    discord: "1419034218607939604"

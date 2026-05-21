@@ -245,6 +245,12 @@ footer {
   padding-top: 1.25rem;
 }
 
+#resultats article header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 #resultats ol {
   padding-left: 1.5em;
   margin-bottom: 0;
@@ -256,6 +262,60 @@ footer {
 
 #resultats ol li .nom {
   font-weight: 600;
+}
+
+/* === Boutons copier === */
+.btn-copier {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25em 0.5em;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border: 1px solid var(--surface-border);
+  border-radius: 4px;
+  background: var(--surface-2);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: background 0.1s, color 0.1s, border-color 0.1s;
+  min-width: 2em;
+  line-height: 1;
+}
+
+.btn-copier:hover {
+  background: var(--surface);
+  color: var(--text);
+  border-color: var(--gold);
+}
+
+.btn-copier.copie-ok {
+  background: var(--jungle);
+  color: #fff;
+  border-color: var(--jungle-light);
+}
+
+.btn-copier-discord {
+  font-weight: 900;
+  font-size: 0.9rem;
+}
+
+.carte-btns {
+  display: inline-flex;
+  gap: 0.35em;
+  margin-left: auto;
+}
+
+/* Boutons globaux (copier tout) */
+.copie-globale {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.copie-globale .btn-copier {
+  padding: 0.4em 0.75em;
+  font-size: 0.85rem;
 }
 
 /* === Alerte === */
