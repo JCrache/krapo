@@ -685,12 +685,196 @@
     return article;
   }
 
+  // ── Easter eggs sur le bouton Générer ──────────────────────────────
+
+  // #1 — Spam : 12 clics en <5s → animation grenouilles
+  const clicTimestamps = [];
+  let spamBloque = false;
+
+  // #2 — Morse "iei" : [clic,clic] pause [clic] pause [clic,clic]
+  const morseClics = [];
+  const TERMINATOR_OST = [
+    "Main Title (The Terminator)",
+    "Escape From the Hospital",
+    "Judgment Day",
+    "I'll Be Back",
+    "Trust Me",
+    "It's Over (Goodbye)",
+    "Terminator 2 Theme",
+    "Guns N' Roses - You Could Be Mine",
+    "Bad to the Bone",
+    "Hasta La Vista, Baby",
+  ];
+
+  // #3 — 49 × 3 → politiciens du 49.3
+  const POLITICIENS_493 = [
+    "Michel Rocard",
+    "Édith Cresson",
+    "Pierre Bérégovoy",
+    "Alain Juppé",
+    "Jean-Pierre Raffarin",
+    "Dominique de Villepin",
+    "Manuel Valls",
+    "Édouard Philippe",
+    "Élisabeth Borne",
+    "Michel Barnier",
+  ];
+
+  function detecterSpam() {
+    const maintenant = Date.now();
+    clicTimestamps.push(maintenant);
+    while (clicTimestamps.length > 0 && maintenant - clicTimestamps[0] > 5000) {
+      clicTimestamps.shift();
+    }
+    return clicTimestamps.length >= 12;
+  }
+
+  function lancerAnimationGrenouilles() {
+    spamBloque = true;
+    const overlay = document.createElement("div");
+    overlay.className = "overlay-grenouilles";
+    for (let i = 0; i < 30; i++) {
+      const span = document.createElement("span");
+      span.className = "grenouille-particle";
+      span.textContent = Math.random() > 0.4 ? "🐸" : "✨";
+      span.style.left = Math.random() * 100 + "%";
+      span.style.animationDelay = Math.random() * 2 + "s";
+      span.style.animationDuration = (2 + Math.random() * 3) + "s";
+      span.style.fontSize = (1.5 + Math.random() * 2) + "rem";
+      overlay.appendChild(span);
+    }
+    const msg = document.createElement("div");
+    msg.className = "grenouille-msg";
+    msg.textContent = "🐸 CRÔA CRÔA CRÔA 🐸";
+    overlay.appendChild(msg);
+    document.body.appendChild(overlay);
+
+    setTimeout(() => {
+      overlay.remove();
+      spamBloque = false;
+      clicTimestamps.length = 0;
+    }, 5000);
+  }
+
+  function detecterMorse() {
+    const maintenant = Date.now();
+
+    // Reset si trop longtemps depuis le dernier clic
+    if (morseClics.length > 0 && maintenant - morseClics[morseClics.length - 1] > 600) {
+      morseClics.length = 0;
+    }
+    morseClics.push(maintenant);
+
+    // Le pattern iei nécessite exactement 5 clics
+    if (morseClics.length < 5) return false;
+
+    // On examine les 5 derniers clics uniquement
+    const c = morseClics.slice(-5);
+    const d01 = c[1] - c[0]; // gap intra-groupe 1
+    const d12 = c[2] - c[1]; // espace entre groupes 1 et 2
+    const d23 = c[3] - c[2]; // espace entre groupes 2 et 3
+    const d34 = c[4] - c[3]; // gap intra-groupe 3
+
+    // iei = [clic-clic] espace [clic] espace [clic-clic]
+    if (d01 < 200 && d12 >= 200 && d12 <= 600 && d23 >= 200 && d23 <= 600 && d34 < 200) {
+      morseClics.length = 0;
+      return true;
+    }
+
+    if (morseClics.length > 10) {
+      morseClics.length = 0;
+    }
+    return false;
+  }
+
+  function appliquerTerminator() {
+    const noms = resultatsDiv.querySelectorAll("li .nom");
+    noms.forEach((el, i) => {
+      el.textContent = TERMINATOR_OST[i % TERMINATOR_OST.length];
+      el.style.fontStyle = "italic";
+    });
+    const note = document.createElement("div");
+    note.className = "easter-note easter-note-teuf";
+    note.style.textAlign = "center";
+    note.style.fontSize = "1.1rem";
+    note.style.padding = "1rem";
+    note.textContent = "🤖 I'll be back.";
+    resultatsDiv.appendChild(note);
+  }
+
+  function afficher493() {
+    resultatsDiv.innerHTML = "";
+    const ancienGlobal = document.getElementById("copie-globale");
+    if (ancienGlobal) ancienGlobal.remove();
+    const article = document.createElement("article");
+    const header = document.createElement("header");
+    header.textContent = "Set-list 49.3";
+    article.appendChild(header);
+    const ol = document.createElement("ol");
+    for (const p of POLITICIENS_493) {
+      const li = document.createElement("li");
+      const nomSpan = document.createElement("span");
+      nomSpan.className = "nom";
+      nomSpan.textContent = p;
+      li.appendChild(nomSpan);
+      ol.appendChild(li);
+    }
+    article.appendChild(ol);
+    const footer = document.createElement("footer");
+    footer.className = "easter-note";
+    footer.textContent = " 🏛️ Responsabilité engagée.";
+    article.appendChild(footer);
+    resultatsDiv.appendChild(article);
+  }
+
+  function afficherBiere() {
+    resultatsDiv.innerHTML = "";
+    const ancienGlobal = document.getElementById("copie-globale");
+    if (ancienGlobal) ancienGlobal.remove();
+    const div = document.createElement("div");
+    div.className = "easter-biere";
+    div.textContent = "🍺 Joue d'abord, tu boieras ensuite !";
+    resultatsDiv.appendChild(div);
+  }
+
   // ── Init ───────────────────────────────────────────────────────────
   const btnToggleCompact = document.getElementById("btn-toggle-compact");
   const btnCopierRepertoire = document.getElementById("btn-copier-repertoire");
 
   btnGenerer.disabled = true;
-  btnGenerer.addEventListener("click", genererToutesSetlists);
+  btnGenerer.addEventListener("click", () => {
+    // Easter egg #1 — Spam grenouilles
+    if (spamBloque) return;
+    if (detecterSpam()) {
+      lancerAnimationGrenouilles();
+      return;
+    }
+
+    // Easter egg #2 — Morse "iei" → Terminator
+    const estMorse = detecterMorse();
+
+    // Easter egg #3 — 49 × 3
+    const nb = parseInt(nbSetlistsInput.value, 10) || 1;
+    const t = parseInt(tailleSetlistInput.value, 10) || 10;
+    if (nb === 49 && t === 3) {
+      afficher493();
+      return;
+    }
+
+    // Easter egg #4 — 1664 ou 86
+    if ((nb === 16 && t === 64) || (nb === 8 && t === 6)) {
+      afficherBiere();
+      return;
+    }
+
+    // Génération normale
+    genererToutesSetlists();
+
+    // Easter egg #2 appliqué après génération
+    if (estMorse) {
+      appliquerTerminator();
+    }
+  });
   cbUneBasse.addEventListener("change", () => {
     easterEggBasse.hidden = !cbUneBasse.checked;
   });
