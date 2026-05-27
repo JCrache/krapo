@@ -10,6 +10,7 @@
   const tailleSetlistInput = document.getElementById("taille-setlist");
   const cbNouveaux = document.getElementById("cb-nouveaux");
   const cbUneBasse = document.getElementById("cb-une-basse");
+  const easterEggBasse = document.getElementById("easter-basse");
   const btnGenerer = document.getElementById("btn-generer");
   const alerteDiv = document.getElementById("alerte");
   const resultatsDiv = document.getElementById("resultats");
@@ -29,7 +30,19 @@
     rappel: "rappel",
     standard: "standard",
   };
+  const EMOJIS_TYPE = {
+    debut: "🏁",
+    teuf: "🔥",
+    connu: "⭐",
+    choree: "💃",
+    chill: "🌿",
+    rappel: "🔔",
+    standard: "♟️",
+  };
   const TAG_NOUVEAU = "nouveau";
+
+  // ── État d'affichage (compact / complet) ───────────────────────────
+  let affichageCompact = false;
 
   // ── Chargement du répertoire ───────────────────────────────────────
   async function chargerRepertoire() {
@@ -52,6 +65,7 @@
   function normaliserMorceau(m) {
     return {
       nom: m.nom,
+      nomComplet: typeof m.nom_complet === "string" ? m.nom_complet : "",
       type: m.type || "standard",
       tags: Array.isArray(m.tags) ? m.tags : [],
       fatigant: typeof m.fatigant === "string" ? m.fatigant : "",
@@ -62,6 +76,24 @@
   }
 
   // ── Helpers ────────────────────────────────────────────────────────
+  function creerBadge(className, emoji, texte, title) {
+    const span = document.createElement("span");
+    span.className = className;
+    if (title) span.title = title;
+
+    const emojiSpan = document.createElement("span");
+    emojiSpan.className = "badge-emoji";
+    emojiSpan.textContent = emoji;
+    span.appendChild(emojiSpan);
+
+    const texteSpan = document.createElement("span");
+    texteSpan.className = "badge-texte";
+    texteSpan.textContent = texte;
+    span.appendChild(texteSpan);
+
+    return span;
+  }
+
   function shuffle(arr) {
     const a = [...arr];
     for (let i = a.length - 1; i > 0; i--) {
@@ -357,7 +389,25 @@
     for (const sl of setlists) for (const m of sl) nomsPlaces.add(m.nom);
 
     for (let i = 0; i < setlists.length; i++) {
+      // Pause bière entre les sets (>4 set-lists)
+      if (nbSetlists > 4 && i > 0) {
+        const pause = document.createElement("div");
+        pause.className = "easter-pause";
+        pause.textContent = `🍺 Pause bière n°${i}`;
+        resultatsDiv.appendChild(pause);
+      }
       resultatsDiv.appendChild(creerCarteSetlist(i + 1, setlists[i]));
+    }
+
+    // Easter eggs selon taille / nombre
+    if (nbSetlists === 1 && taille <= 3) {
+      resultatsDiv.appendChild(creerEasterEgg(" P'tite journée hein"));
+    }
+    if (nbSetlists === 1 && taille > 15) {
+      resultatsDiv.appendChild(creerEasterEgg(" Allez courage les trompettes, c'est pas bientôt fini 🎺"));
+    }
+    if (taille >= 10 && setlists.some((sl) => sl.filter((m) => aCategorie(m, "chill")).length === 0)) {
+      resultatsDiv.appendChild(creerEasterEgg(" Tant pis pour le set chill!"));
     }
 
     // Stocker pour la copie globale et afficher les boutons globaux
@@ -431,51 +481,26 @@
     li.appendChild(nomSpan);
 
     const typeKnown = TYPES_CONNUS.includes(m.type) ? m.type : "standard";
-    const badge = document.createElement("span");
-    badge.className = `badge badge-${typeKnown}`;
-    badge.textContent = LABELS_TYPE[typeKnown] || m.type;
-    li.appendChild(badge);
+    li.appendChild(creerBadge(`badge badge-${typeKnown}`, EMOJIS_TYPE[typeKnown] || "▪️", LABELS_TYPE[typeKnown] || m.type));
 
     for (const t of m.tags || []) {
       if (t === TAG_NOUVEAU) {
-        const b = document.createElement("span");
-        b.className = "badge badge-nouveau";
-        b.textContent = "nouveau";
-        li.appendChild(b);
+        li.appendChild(creerBadge("badge badge-nouveau", "🆕", "nouveau"));
       } else if (t === "pas-debut") {
-        const b = document.createElement("span");
-        b.className = "badge badge-pas-debut";
-        b.title = "Ne doit pas être en première position";
-        b.textContent = "⚡ pas en 1er";
-        li.appendChild(b);
+        li.appendChild(creerBadge("badge badge-pas-debut", "⚡", "pas en 1er", "Ne doit pas être en première position"));
       } else if (TYPES_CONNUS.includes(t) && t !== m.type) {
-        const b = document.createElement("span");
-        b.className = `badge badge-${t} badge-tag`;
-        b.textContent = LABELS_TYPE[t] || t;
-        li.appendChild(b);
+        li.appendChild(creerBadge(`badge badge-${t} badge-tag`, EMOJIS_TYPE[t] || "▪️", LABELS_TYPE[t] || t));
       }
     }
 
     if (estFatigant(m)) {
-      const fat = document.createElement("span");
-      fat.className = "badge badge-fatigant";
-      fat.title = `Fatigant : ${m.fatigant}`;
-      fat.textContent = `💤 ${m.fatigant}`;
-      li.appendChild(fat);
+      li.appendChild(creerBadge("badge badge-fatigant", "💤", m.fatigant, `Fatigant : ${m.fatigant}`));
     }
     if (estTricote(m)) {
-      const tri = document.createElement("span");
-      tri.className = "badge badge-tricote";
-      tri.title = `Tricoté (difficile au sax) : ${m.tricote}`;
-      tri.textContent = `🎷 ${m.tricote}`;
-      li.appendChild(tri);
+      li.appendChild(creerBadge("badge badge-tricote", "🎷", m.tricote, `Tricoté (difficile au sax) : ${m.tricote}`));
     }
     if (m.deuxBasses) {
-      const db = document.createElement("span");
-      db.className = "badge badge-deux-basses";
-      db.title = "Nécessite 2 basses";
-      db.textContent = "🎸🎸";
-      li.appendChild(db);
+      li.appendChild(creerBadge("badge badge-deux-basses", "🎸🎸", "2 basses", "Nécessite 2 basses"));
     }
     return li;
   }
@@ -543,6 +568,13 @@
   }
 
   // ── Rendu ──────────────────────────────────────────────────────────
+  function creerEasterEgg(texte) {
+    const div = document.createElement("div");
+    div.className = "easter-note";
+    div.textContent = texte;
+    return div;
+  }
+
   function creerCarteSetlist(numero, setlist) {
     const article = document.createElement("article");
 
@@ -587,68 +619,99 @@
 
       // Badge du type principal
       const typeKnown = TYPES_CONNUS.includes(m.type) ? m.type : "standard";
-      const badge = document.createElement("span");
-      badge.className = `badge badge-${typeKnown}`;
-      badge.textContent = LABELS_TYPE[typeKnown] || m.type;
-      li.appendChild(badge);
+      li.appendChild(creerBadge(`badge badge-${typeKnown}`, EMOJIS_TYPE[typeKnown] || "▪️", LABELS_TYPE[typeKnown] || m.type));
 
       // Badges pour chaque tag connu
       for (const t of m.tags || []) {
         if (t === TAG_NOUVEAU) {
-          const b = document.createElement("span");
-          b.className = "badge badge-nouveau";
-          b.textContent = "nouveau";
-          li.appendChild(b);
+          li.appendChild(creerBadge("badge badge-nouveau", "🆕", "nouveau"));
         } else if (t === "pas-debut") {
-          const b = document.createElement("span");
-          b.className = "badge badge-pas-debut";
-          b.title = "Ne doit pas être en première position";
-          b.textContent = "⚡ pas en 1er";
-          li.appendChild(b);
+          li.appendChild(creerBadge("badge badge-pas-debut", "⚡", "pas en 1er", "Ne doit pas être en première position"));
         } else if (TYPES_CONNUS.includes(t) && t !== m.type) {
-          const tagBadge = document.createElement("span");
-          tagBadge.className = `badge badge-${t} badge-tag`;
-          tagBadge.textContent = LABELS_TYPE[t] || t;
-          li.appendChild(tagBadge);
+          li.appendChild(creerBadge(`badge badge-${t} badge-tag`, EMOJIS_TYPE[t] || "▪️", LABELS_TYPE[t] || t));
         }
       }
 
       // Marqueur fatigant
       if (estFatigant(m)) {
-        const fat = document.createElement("span");
-        fat.className = "badge badge-fatigant";
-        fat.title = `Fatigant : ${m.fatigant}`;
-        fat.textContent = `💤 ${m.fatigant}`;
-        li.appendChild(fat);
+        li.appendChild(creerBadge("badge badge-fatigant", "💤", m.fatigant, `Fatigant : ${m.fatigant}`));
       }
 
       // Marqueur tricoté
       if (estTricote(m)) {
-        const tri = document.createElement("span");
-        tri.className = "badge badge-tricote";
-        tri.title = `Tricoté (difficile au sax) : ${m.tricote}`;
-        tri.textContent = `🎷 ${m.tricote}`;
-        li.appendChild(tri);
+        li.appendChild(creerBadge("badge badge-tricote", "🎷", m.tricote, `Tricoté (difficile au sax) : ${m.tricote}`));
       }
 
       // Marqueur deux basses
       if (m.deuxBasses) {
-        const db = document.createElement("span");
-        db.className = "badge badge-deux-basses";
-        db.title = "Nécessite 2 basses";
-        db.textContent = "🎸🎸";
-        li.appendChild(db);
+        li.appendChild(creerBadge("badge badge-deux-basses", "🎸🎸", "2 basses", "Nécessite 2 basses"));
       }
 
       ol.appendChild(li);
     }
     article.appendChild(ol);
 
+    // Easter egg : compteur teuf
+    const nbTeuf = setlist.filter((m) => aCategorie(m, "teuf")).length;
+    if (nbTeuf < 2) {
+      const note = document.createElement("footer");
+      note.className = "easter-note";
+      note.textContent = " C'est pas trop la teuf !";
+      article.appendChild(note);
+    } else if (nbTeuf > 6) {
+      const note = document.createElement("footer");
+      note.className = "easter-note easter-note-teuf";
+      note.textContent = "Ça, c'est la teuf ! 🔥🔥🔥";
+      article.appendChild(note);
+    }
+
+    // Easter egg : Chirouble
+    if (setlist.some((m) => m.nom === "Chirouble")) {
+      const note = document.createElement("footer");
+      note.className = "easter-note";
+      note.textContent = " Et un verre de chiiiiirouuuble 🍷";
+      article.appendChild(note);
+    }
+
+    // Easter egg : trop de chorée
+    const nbChoree = setlist.filter((m) => aCategorie(m, "choree")).length;
+    if (nbChoree > 6) {
+      const note = document.createElement("footer");
+      note.className = "easter-note";
+      note.textContent = " Oh le set faaatigant !";
+      article.appendChild(note);
+    }
+
     return article;
   }
 
   // ── Init ───────────────────────────────────────────────────────────
+  const btnToggleCompact = document.getElementById("btn-toggle-compact");
+  const btnCopierRepertoire = document.getElementById("btn-copier-repertoire");
+
   btnGenerer.disabled = true;
   btnGenerer.addEventListener("click", genererToutesSetlists);
+  cbUneBasse.addEventListener("change", () => {
+    easterEggBasse.hidden = !cbUneBasse.checked;
+  });
+
+  btnToggleCompact.addEventListener("click", () => {
+    affichageCompact = !affichageCompact;
+    btnToggleCompact.textContent = affichageCompact ? "🏷️ Émojis" : "🏷️ Détails";
+    btnToggleCompact.title = affichageCompact
+      ? "Affichage détaillé (types et tags en texte)"
+      : "Affichage compact (émojis uniquement)";
+    document.body.classList.toggle("compact-badges", affichageCompact);
+  });
+
+  btnCopierRepertoire.addEventListener("click", () => {
+    const texte = repertoire
+      .slice()
+      .map((m) => m.nomComplet || m.nom)
+      .sort((a, b) => a.localeCompare(b, "fr", { sensitivity: "base" }))
+      .join("\n");
+    copierTexte(texte, btnCopierRepertoire);
+  });
+
   chargerRepertoire();
 })();

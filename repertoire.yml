@@ -2,6 +2,7 @@
 # ------------------------------------
 # Format de chaque morceau :
 #   - nom: "..."             (obligatoire)
+#     nom_complet: "..."     (optionnel, titre + artiste pour le partage du répertoire)
 #     type: debut|teuf|connu|choree|chill|rappel|standard   (optionnel, défaut: standard)
 #     tags: [debut, teuf, connu, choree, chill, rappel, nouveau, pas-debut]  (optionnel)
 #     fatigant: "instrument" (optionnel, chaîne ; non vide => interdit en 2e moitié de set)
@@ -18,6 +19,7 @@
 
 morceaux:
   - nom: "8 bit"
+    nom_complet: "8 bit - Adhesive wombat"
     type: standard
     tags: [debut, chill]
     fatigant: ""
@@ -25,6 +27,7 @@ morceaux:
     discord: "1000359811281600622"
 
   - nom: "Biffy"
+    nom_complet: "Victory Over the Sun - Biffy Clyro"
     type: standard
     tags: [debut, teuf, rappel]
     fatigant: ""
@@ -32,6 +35,7 @@ morceaux:
     discord: "1000802984780898334"
 
   - nom: "Bonfire"
+    nom_complet: "Bonfire - Knife Party"
     type: standard
     tags: [debut]
     fatigant: ""
@@ -39,6 +43,7 @@ morceaux:
     discord: "1000803027030126753"
 
   - nom: "Canned Heat"
+    nom_complet: "Canned Heat - Jamiroquai"
     type: choree
     tags: []
     fatigant: ""
@@ -46,6 +51,7 @@ morceaux:
     discord: "1000803114422653109"
 
   - nom: "Chirouble"
+    nom_complet: "Within Temptation - Mother Earth"
     type: standard
     tags: []
     fatigant: ""
@@ -53,6 +59,7 @@ morceaux:
     discord: "1428766357973106930"
 
   - nom: "Daft Punk"
+    nom_complet: "Medley - Daft Punk"
     type: teuf
     tags: [rappel, connu]
     fatigant: ""
@@ -60,6 +67,7 @@ morceaux:
     discord: "1000803220509163631"
 
   - nom: "D.a.n.c.e"
+    nom_complet: "D.a.n.c.e - Justice"
     type: standard
     tags: [connu]
     fatigant: ""
@@ -67,6 +75,7 @@ morceaux:
     discord: "1000803358883450890"
 
   - nom: "Day Break"
+    nom_complet: "Day Break - Overwerk"
     type: standard
     tags: [debut, connu, chill]
     fatigant: ""
@@ -74,6 +83,7 @@ morceaux:
     discord: "1000803417029087252"
 
   - nom: "DjiDji"
+    nom_complet: "DjiDji in paradisco - Dalida"
     type: connu
     tags: []
     fatigant: ""
@@ -81,6 +91,7 @@ morceaux:
     discord: "1000803499250036796"
 
   - nom: "Foals"
+    nom_complet: "Medley Foals"
     type: standard
     tags: []
     fatigant: ""
@@ -88,6 +99,7 @@ morceaux:
     discord: "1000803542644314253"
 
   - nom: "Fuya"
+    nom_complet: "Fuya - C2C"
     type: chill
     tags: [choree]
     fatigant: ""
@@ -95,6 +107,7 @@ morceaux:
     discord: "1000803580216889444"
 
   - nom: "Ghost in the Shell"
+    nom_complet: "Ghost in the Shell - B.O."
     type: chill
     tags: []
     fatigant: ""
@@ -102,6 +115,7 @@ morceaux:
     discord: "1000803785989431376"
 
   - nom: "Giorgio"
+    nom_complet: "Giorgio by Moroder - Daft Punk"
     type: standard
     tags: [chill, connu]
     fatigant: ""
@@ -109,6 +123,7 @@ morceaux:
     discord: "1000803861205897326"
 
   - nom: "Gnossienne"
+    nom_complet: "Gnossienne - Erik Satie"
     type: rappel
     tags: []
     fatigant: ""
@@ -116,6 +131,7 @@ morceaux:
     discord: "1000803930185420861"
 
   - nom: "Going the Distance"
+    nom_complet: "Going the Distance - Bill Conti"
     type: chill
     tags: [debut, connu]
     fatigant: ""
@@ -123,6 +139,7 @@ morceaux:
     discord: "1000804209429590057"
 
   - nom: "Goldfish"
+    nom_complet: "Medley Goldfish"
     type: standard
     tags: [nouveau]
     fatigant: ""
@@ -130,6 +147,7 @@ morceaux:
     discord: "1416889754791968798"
 
   - nom: "Helicopter"
+    nom_complet: "Helicopter - Bloc Party"
     type: standard
     tags: [choree]
     fatigant: ""
@@ -137,6 +155,7 @@ morceaux:
     discord: "1000804274332254358"
 
   - nom: "Hybrid Stigmata"
+    nom_complet: "Hybrid Stigmata - Dimmu Borgir"
     type: standard
     tags: []
     fatigant: ""
@@ -144,6 +163,7 @@ morceaux:
     discord: "1000804358511919266"
 
   - nom: "I feel love"
+    nom_complet: "I feel love - Marc Almond & Jimmy Somerville"
     type: standard
     tags: []
     fatigant: ""
@@ -151,6 +171,7 @@ morceaux:
     discord: "1255565807568683088"
 
   - nom: "Lone Digger"
+    nom_complet: "Lone Digger - Caravan Palace"
     type: standard
     tags: [connu]
     fatigant: ""
@@ -158,6 +179,7 @@ morceaux:
     discord: "1000804508202450984"
 
   - nom: "Magnolias forever"
+    nom_complet: "Magnolias forever - Claude François"
     type: connu
     tags: []
     fatigant: "tp"
@@ -165,6 +187,7 @@ morceaux:
     discord: "1000804577580437625"
 
   - nom: "Major Lazer"
+    nom_complet: "Medley Major Lazer"
     type: chill
     tags: [connu, choree]
     fatigant: ""
@@ -172,6 +195,7 @@ morceaux:
     discord: "1000804637282148402"
 
   - nom: "Maniac"
+    nom_complet: "Maniac - Michael Sembello"
     type: choree
     tags: [connu]
     fatigant: ""
@@ -179,6 +203,7 @@ morceaux:
     discord: "1149107908802527393"
 
   - nom: "Medley Jimmy"
+    nom_complet: "Medley Jimmy Somerville"
     type: connu
     tags: []
     fatigant: ""
@@ -186,6 +211,7 @@ morceaux:
     discord: "1000804715136819290"
 
   - nom: "Megaman"
+    nom_complet: "Megaman - B.O. Dr Wily's Castle"
     type: teuf
     tags: [rappel]
     fatigant: ""
@@ -193,6 +219,7 @@ morceaux:
     discord: "1000804764143067227"
 
   - nom: "Mexican"
+    nom_complet: "Mexican - Babe Ruth"
     type: debut
     tags: [chill]
     fatigant: ""
@@ -200,6 +227,7 @@ morceaux:
     discord: "1223030986292465686"
 
   - nom: "Mushroom"
+    nom_complet: "Becoming Insane - Infected Mushroom"
     type: teuf
     tags: [rappel]
     fatigant: ""
@@ -207,6 +235,7 @@ morceaux:
     discord: "1232317636273246219"
 
   - nom: "Nothing Else Matters"
+    nom_complet: "Nothing Else Matters - Metallica"
     type: chill
     tags: [connu]
     fatigant: ""
@@ -215,6 +244,7 @@ morceaux:
     discord: "1000804829439987863"
 
   - nom: "Pony"
+    nom_complet: "Pony - Deluxe"
     type: standard
     tags: []
     fatigant: ""
@@ -222,6 +252,7 @@ morceaux:
     discord: "1288246838666985532"
 
   - nom: "Pressure in my head"
+    nom_complet: "Mashup Pressure Muse et In my head Qotsa"
     type: standard
     tags: []
     fatigant: ""
@@ -229,6 +260,7 @@ morceaux:
     discord: "1000804890454540310"
 
   - nom: "Radio Video"
+    nom_complet: "Radio Video - System of a Down"
     type: teuf
     tags: [rappel]
     fatigant: ""
@@ -236,6 +268,7 @@ morceaux:
     discord: "1000804953322967101"
 
   - nom: "Rodrigo"
+    nom_complet: "Medley Rodrigo y Gabriela"
     type: standard
     tags: [choree, pas-debut]
     fatigant: "basse"
@@ -243,6 +276,7 @@ morceaux:
     discord: "1000805052962852904"
 
   - nom: "Schrodinger"
+    nom_complet: "Schrodinger - Anakronic Electro Orkestra"
     type: standard
     tags: [teuf]
     fatigant: ""
@@ -251,6 +285,7 @@ morceaux:
     discord: "1000805121590054952"
 
   - nom: "Shanti"
+    nom_complet: "Shanti Shanti - Baby Metal"
     type: standard
     tags: [teuf]
     fatigant: ""
@@ -258,6 +293,7 @@ morceaux:
     discord: "1000805199260164146"
 
   - nom: "Sledge"
+    nom_complet: "Dance with the dead - Sledge"
     type: standard
     tags: [pas-debut]
     fatigant: ""
@@ -265,6 +301,7 @@ morceaux:
     discord: "1168859027502018601"
 
   - nom: "Starlight"
+    nom_complet: "Starlight - Supermen Lovers"
     type: connu
     tags: [choree]
     fatigant: ""
@@ -272,13 +309,15 @@ morceaux:
     discord: "1000805409554190368"
 
   - nom: "Sur la planche"
+    nom_complet: "Sur la planche - La Femme"
     type: teuf
-    tags: [teuf, connu, choree, chill, rappel]
+    tags: [teuf, connu, choree, rappel]
     fatigant: ""
     tricote: ""
     discord: "1000805474997911613"
 
   - nom: "The Bay"
+    nom_complet: "The Bay - Metronomy"
     type: debut
     tags: [chill]
     fatigant: ""
@@ -286,6 +325,7 @@ morceaux:
     discord: "1000805605365264415"
 
   - nom: "Thunderstruck"
+    nom_complet: "Thunderstruck - AC/DC"
     type: connu
     tags: []
     fatigant: ""
@@ -293,6 +333,7 @@ morceaux:
     discord: "1000805664307818656"
 
   - nom: "Time is running out"
+    nom_complet: "Time is running out - Muse"
     type: nouveau
     tags: []
     fatigant: ""
@@ -300,6 +341,7 @@ morceaux:
     discord: "1443555395695153172"
 
   - nom: "Toccata"
+    nom_complet: "Toccata - Overwerk"
     type: teuf
     tags: []
     fatigant: ""
@@ -307,6 +349,7 @@ morceaux:
     discord: "1000805713020469429"
 
   - nom: "Tous les memes"
+    nom_complet: "Tous les memes - Stromae"
     type: debut
     tags: []
     fatigant: ""
@@ -314,6 +357,7 @@ morceaux:
     discord: "1000805759736631347"
 
   - nom: "Turbo Killer"
+    nom_complet: "Turbo Killer - Carpenter Brut"
     type: teuf
     tags: []
     fatigant: ""
@@ -321,6 +365,7 @@ morceaux:
     discord: "1000805829810856137"
 
   - nom: "Uptown Funk"
+    nom_complet: "Uptown Funk - Mark Ronson ft Bruno Mars"
     type: connu
     tags: [choree, chill]
     fatigant: ""
@@ -328,6 +373,7 @@ morceaux:
     discord: "1000805885100167168"
 
   - nom: "War"
+    nom_complet: "War - Hypnotic Brass Ensemble"
     type: choree
     tags: [chill]
     fatigant: ""
@@ -335,6 +381,7 @@ morceaux:
     discord: "1000805992554037459"
 
   - nom: "Whisper to me"
+    nom_complet: "Whisper to me - General Elektriks"
     type: standard
     tags: []
     fatigant: ""
@@ -342,6 +389,7 @@ morceaux:
     discord: "1389218207004491887"
 
   - nom: "Womanizer"
+    nom_complet: "Womanizer - Britney Spears"
     type: connu
     tags: [chorée, debut]
     fatigant: ""
