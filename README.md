@@ -18,11 +18,13 @@ python -m http.server 8000
 ```yaml
 morceaux:
   - nom: "Nom du morceau"
+    nom_complet: "Nom du morceau - Artiste"  # optionnel, pour le partage du répertoire
     type: debut         # voir catégories ci-dessous
     tags: [rappel]      # optionnel, liste de tags additionnels
     fatigant: "trompette"  # optionnel, string : instrument(s) pour qui c'est fatigant
     tricote: "sax"        # optionnel, string : difficile au saxophone
     deux-basses: true     # optionnel, booléen : nécessite 2 personnes à la basse
+    discord: "1234567890" # optionnel, id du salon Discord associé au morceau
 ```
 
 ### Catégories (`type`)
@@ -121,3 +123,31 @@ Chaque set-list :
 - alterne les types autant que possible.
 
 Lors de la génération de plusieurs set-lists simultanément, un morceau n'est pas réutilisé d'une set-list à l'autre — sauf si le répertoire est trop petit, auquel cas un avertissement est affiché.
+
+## Barre d'outils
+
+- **🏷️ Détails / Émojis** : bascule entre l'affichage complet des badges (type + tags en texte) et un affichage compact avec uniquement des émojis représentatifs.
+- **📋 Répertoire** : copie dans le presse-papiers la liste complète du répertoire (noms complets, triée par ordre alphabétique) pour la partager facilement.
+
+## Copie des set-lists
+
+Chaque carte de set-list possède deux boutons de copie :
+- **📋** : copie les noms des morceaux (un par ligne).
+- **#** : copie les liens Discord (`<#id>`) pour coller directement dans un salon Discord.
+
+Des boutons globaux « Copier tout » permettent de copier l'ensemble des set-lists d'un coup.
+
+## Attribut `nom_complet`
+
+`nom_complet` est une **chaîne de caractères** optionnelle contenant le titre complet du morceau avec l'artiste (ex. `"Going the Distance - Cake"`).
+
+- Utilisé uniquement par le bouton **📋 Répertoire** pour le partage.
+- N'est jamais affiché à l'écran dans les set-lists.
+- Si absent ou vide, le champ `nom` est utilisé à la place.
+
+## Attribut `discord`
+
+`discord` est une **chaîne de caractères** optionnelle contenant l'identifiant du salon Discord associé au morceau.
+
+- Utilisé pour la copie au format Discord (`<#id>`).
+- Si absent, le nom du morceau est utilisé à la place lors de la copie Discord.
