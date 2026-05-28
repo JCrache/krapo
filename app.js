@@ -837,6 +837,80 @@
     resultatsDiv.appendChild(div);
   }
 
+  // #5 — 6 × 7 → animation "sixty-seven" split-screen
+  function lancerSixtySeven() {
+    // Créer l'overlay split-screen
+    const overlay = document.createElement("div");
+    overlay.className = "overlay-sixtyseven";
+
+    const moitieGauche = document.createElement("div");
+    moitieGauche.className = "split-half split-left";
+    const moitieDroite = document.createElement("div");
+    moitieDroite.className = "split-half split-right";
+
+    // Cloner le contenu visible de la page dans chaque moitié
+    const pageContent = document.body.innerHTML;
+    moitieGauche.innerHTML = '<div class="split-content">' + pageContent + '</div>';
+    moitieDroite.innerHTML = '<div class="split-content">' + pageContent + '</div>';
+
+    overlay.appendChild(moitieGauche);
+    overlay.appendChild(moitieDroite);
+
+    const msg = document.createElement("div");
+    msg.className = "sixtyseven-msg";
+    msg.textContent = "🤣😭🤣 SIX-SEVEN 🤣😭🤣";
+    overlay.appendChild(msg);
+
+    document.body.appendChild(overlay);
+
+    setTimeout(() => {
+      overlay.remove();
+    }, 4000);
+  }
+
+  // #6 — 36 × 15 → Minitel
+  function lancerMinitel() {
+    // Charger la police VT323 (Google Fonts)
+    if (!document.getElementById("font-minitel")) {
+      const link = document.createElement("link");
+      link.id = "font-minitel";
+      link.rel = "stylesheet";
+      link.href = "https://fonts.googleapis.com/css2?family=VT323&display=swap";
+      document.head.appendChild(link);
+    }
+
+    // Appliquer la classe Minitel au body
+    document.body.classList.add("mode-minitel");
+
+    // Insérer le logo Minitel
+    let logoDiv = document.getElementById("minitel-logo");
+    if (!logoDiv) {
+      logoDiv = document.createElement("div");
+      logoDiv.id = "minitel-logo";
+      logoDiv.innerHTML = '<div class="minitel-screen">' +
+        '<pre class="minitel-art">' +
+        '┌──────────────────────┐\n' +
+        '│  ╔══╗ ╔══╗ ╔╗ ╔══╗  │\n' +
+        '│  ║══╣ ╠══╣ ║║ ╚══╗  │\n' +
+        '│  ╚══╝ ╩  ╩ ╩╩ ╚══╝  │\n' +
+        '│                      │\n' +
+        '│    ▄▄▄ ▄▄▄ ▄ ▄▄▄    │\n' +
+        '│     ▀▄ ▄▄▄ ▄ ▄▄▄    │\n' +
+        '│    ▄▄▀ ▄▄▀ ▄   ▀▄   │\n' +
+        '│                      │\n' +
+        '│   ═══ MINITEL ═══    │\n' +
+        '└──────────────────────┘\n' +
+        '   ┌─┬─┬─┬─┬─┬─┬─┐\n' +
+        '   │▪│▪│▪│▪│▪│▪│▪│\n' +
+        '   └─┴─┴─┴─┴─┴─┴─┘' +
+        '</pre>' +
+        '<p class="minitel-subtitle">3615 KRAPOS</p>' +
+        '</div>';
+      resultatsDiv.parentNode.insertBefore(logoDiv, resultatsDiv);
+    }
+
+  }
+
   // ── Init ───────────────────────────────────────────────────────────
   const btnToggleCompact = document.getElementById("btn-toggle-compact");
   const btnCopierRepertoire = document.getElementById("btn-copier-repertoire");
@@ -864,6 +938,24 @@
     // Easter egg #4 — 1664 ou 86
     if ((nb === 16 && t === 64) || (nb === 8 && t === 6)) {
       afficherBiere();
+      return;
+    }
+
+    // Easter egg #5 — 6 × 7 → sixty-seven
+    if (nb === 6 && t === 7) {
+      genererToutesSetlists();
+      lancerSixtySeven();
+      if (estMorse) appliquerTerminator();
+      return;
+    }
+
+    // Easter egg #6 — 36 × 15 → Minitel (génère 3×15)
+    if (nb === 36 && t === 15) {
+      nbSetlistsInput.value = 3;
+      genererToutesSetlists();
+      nbSetlistsInput.value = 36;
+      lancerMinitel();
+      if (estMorse) appliquerTerminator();
       return;
     }
 
