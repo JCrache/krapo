@@ -332,9 +332,17 @@ morceaux:
     tricote: ""
     discord: "1000805664307818656"
 
+  - nom: "Thrill of the Night"
+    nom_complet: "Thrill of the Night - Sébastien Tellier"
+    type: nouveau
+    tags: [chill, rappel]
+    fatigant: ""
+    tricote: "sax"
+    discord: "1492936228935438497"
+
   - nom: "Time is running out"
     nom_complet: "Time is running out - Muse"
-    type: nouveau
+    type: standard
     tags: []
     fatigant: ""
     tricote: ""
