@@ -8,6 +8,8 @@
 #     fatigant: "instrument" (optionnel, chaîne ; non vide => interdit en 2e moitié de set)
 #     tricote: "instrument"  (optionnel, chaîne ; non vide => difficile au sax, interdit en 2e moitié)
 #     discord: "1234567890"  (optionnel, id du salon Discord associé au morceau)
+#     sacem:                 (optionnel, liste de chaînes ; titres originaux pour déclaration Sacem)
+#       - "Titre original - Auteur(s)"
 #
 # Tag spécial "nouveau" : marque un morceau récemment ajouté, peu maîtrisé.
 # Inclus dans les set-lists uniquement si la case « Inclure les nouveaux morceaux » est cochée.
@@ -19,12 +21,14 @@
 
 morceaux:
   - nom: "8 bit"
-    nom_complet: "8 bit - Adhesive wombat"
+    nom_complet: "8 Bit Adventure - Adhesive wombat"
     type: standard
     tags: [debut, chill]
     fatigant: ""
     tricote: "sax"
     discord: "1000359811281600622"
+    sacem:
+      - "8 Bit Adventure - Adhesive wombat"
 
   - nom: "Biffy"
     nom_complet: "Victory Over the Sun - Biffy Clyro"
@@ -33,6 +37,8 @@ morceaux:
     fatigant: ""
     tricote: ""
     discord: "1000802984780898334"
+    sacem:
+      - "Victory Over the Sun - Simon Neil"
 
   - nom: "Bonfire"
     nom_complet: "Bonfire - Knife Party"
@@ -41,6 +47,8 @@ morceaux:
     fatigant: ""
     tricote: ""
     discord: "1000803027030126753"
+    sacem:
+      - "Bonfire - Rob Swire, Gareth McGrillen"
 
   - nom: "Canned Heat"
     nom_complet: "Canned Heat - Jamiroquai"
@@ -49,6 +57,8 @@ morceaux:
     fatigant: ""
     tricote: ""
     discord: "1000803114422653109"
+    sacem:
+      - "Canned Heat - Jamiroquai"
 
   - nom: "Chirouble"
     nom_complet: "Within Temptation - Mother Earth"
@@ -57,6 +67,8 @@ morceaux:
     fatigant: ""
     tricote: ""
     discord: "1428766357973106930"
+    sacem:
+      - "Mother Earth - Within Temptation"
 
   - nom: "Daft Punk"
     nom_complet: "Medley - Daft Punk"
@@ -65,6 +77,10 @@ morceaux:
     fatigant: ""
     tricote: ""
     discord: "1000803220509163631"
+    sacem: 
+      - "Around the World - Daft Punk"
+      - "Harder Better Faster Stronger - Daft Punk"
+      - "Aerodynamic - Daft Punk"
 
   - nom: "D.a.n.c.e"
     nom_complet: "D.a.n.c.e - Justice"
@@ -73,6 +89,8 @@ morceaux:
     fatigant: ""
     tricote: ""
     discord: "1000803358883450890"
+    sacem:
+      - "D.A.N.C.E - Gaspard Augé, Xavier de Rosnay"
 
   - nom: "Day Break"
     nom_complet: "Day Break - Overwerk"
@@ -81,14 +99,18 @@ morceaux:
     fatigant: ""
     tricote: ""
     discord: "1000803417029087252"
+    sacem:
+      - "Day Break - Overwerk"
 
   - nom: "DjiDji"
-    nom_complet: "DjiDji in paradisco - Dalida"
+    nom_complet: "Gigi in paradisco - Dalida"
     type: connu
     tags: []
     fatigant: ""
     tricote: ""
     discord: "1000803499250036796"
+    sacem:
+      - "Gigi in paradisco - Dalida"
 
   - nom: "Foals"
     nom_complet: "Medley Foals"
@@ -97,6 +119,10 @@ morceaux:
     fatigant: ""
     tricote: ""
     discord: "1000803542644314253"
+    sacem:
+      - "French Open - Foals"
+      - "Hummer - Foals"
+      - "Cassius - Foals"
 
   - nom: "Fuya"
     nom_complet: "Fuya - C2C"
@@ -105,6 +131,8 @@ morceaux:
     fatigant: ""
     tricote: ""
     discord: "1000803580216889444"
+    sacem:
+      - "Fuya - C2C"
 
   - nom: "Ghost in the Shell"
     nom_complet: "Ghost in the Shell - B.O."
@@ -113,6 +141,8 @@ morceaux:
     fatigant: ""
     tricote: ""
     discord: "1000803785989431376"
+    sacem:
+      - "Ghost in the Shell - Kenji Kawai"
 
   - nom: "Giorgio"
     nom_complet: "Giorgio by Moroder - Daft Punk"
@@ -121,6 +151,8 @@ morceaux:
     fatigant: ""
     tricote: ""
     discord: "1000803861205897326"
+    sacem:
+      - "Giorgio by Moroder - Daft Punk"
 
   - nom: "Gnossienne"
     nom_complet: "Gnossienne - Erik Satie"
@@ -129,6 +161,8 @@ morceaux:
     fatigant: ""
     tricote: ""
     discord: "1000803930185420861"
+    sacem:
+      - "Gnossienne No. 1 - Erik Satie"
 
   - nom: "Going the Distance"
     nom_complet: "Going the Distance - Bill Conti"
@@ -137,6 +171,8 @@ morceaux:
     fatigant: ""
     tricote: ""
     discord: "1000804209429590057"
+    sacem:
+      - "Going the Distance - Bill Conti"
 
   - nom: "Goldfish"
     nom_complet: "Medley Goldfish"
@@ -145,6 +181,9 @@ morceaux:
     fatigant: ""
     tricote: ""
     discord: "1416889754791968798"
+    sacem:
+      - "Get Busy Living - Goldfish"
+      - "Soundtracks and comebacks - Goldfish"
 
   - nom: "Helicopter"
     nom_complet: "Helicopter - Bloc Party"
@@ -153,6 +192,8 @@ morceaux:
     fatigant: ""
     tricote: ""
     discord: "1000804274332254358"
+    sacem:
+      - "Helicopter - Bloc Party"
 
   - nom: "Hybrid Stigmata"
     nom_complet: "Hybrid Stigmata - Dimmu Borgir"
@@ -161,6 +202,8 @@ morceaux:
     fatigant: ""
     tricote: ""
     discord: "1000804358511919266"
+    sacem:
+      - "Hybrid Stigmata The Apostasy - Kopperud Sven Atle, Andersen Tom Rune, Thoresen Stian"
 
   - nom: "I feel love"
     nom_complet: "I feel love - Marc Almond & Jimmy Somerville"
@@ -169,6 +212,8 @@ morceaux:
     fatigant: ""
     tricote: ""
     discord: "1255565807568683088"
+    sacem:
+      - "I Feel Love - Marc Almond, Jimmy Somerville"
 
   - nom: "Lone Digger"
     nom_complet: "Lone Digger - Caravan Palace"
@@ -177,6 +222,8 @@ morceaux:
     fatigant: ""
     tricote: ""
     discord: "1000804508202450984"
+    sacem:
+      - "Lone Digger - Caravan Palace"
 
   - nom: "Magnolias forever"
     nom_complet: "Magnolias forever - Claude François"
@@ -185,6 +232,8 @@ morceaux:
     fatigant: "tp"
     tricote: ""
     discord: "1000804577580437625"
+    sacem:
+      - "Magnolias for Ever - Claude François"
 
   - nom: "Major Lazer"
     nom_complet: "Medley Major Lazer"
@@ -193,6 +242,12 @@ morceaux:
     fatigant: ""
     tricote: ""
     discord: "1000804637282148402"
+    sacem:
+      - "Lean On - Major Lazer"
+      - "Be together - Major Lazer"
+      - "Get Free - Major Lazer"
+      - "Watch Out for This - Major Lazer"
+      - "Come On to Me - Major Lazer"
 
   - nom: "Maniac"
     nom_complet: "Maniac - Michael Sembello"
@@ -201,6 +256,8 @@ morceaux:
     fatigant: ""
     tricote: ""
     discord: "1149107908802527393"
+    sacem:
+      - "Maniac - Michael Sembello"
 
   - nom: "Medley Jimmy"
     nom_complet: "Medley Jimmy Somerville"
@@ -209,6 +266,9 @@ morceaux:
     fatigant: ""
     tricote: ""
     discord: "1000804715136819290"
+    sacem:
+      - "You Make Me Feel (Mighty Real) - Jimmy Somerville"
+      - "Don't Leave Me This Way - Jimmy Somerville"
 
   - nom: "Megaman"
     nom_complet: "Megaman - B.O. Dr Wily's Castle"
@@ -217,6 +277,8 @@ morceaux:
     fatigant: ""
     tricote: ""
     discord: "1000804764143067227"
+    sacem:
+      - "Dr. Wily Stage 1 & 2 - Takashi Tateishi"
 
   - nom: "Mexican"
     nom_complet: "Mexican - Babe Ruth"
@@ -225,6 +287,8 @@ morceaux:
     fatigant: ""
     tricote: ""
     discord: "1223030986292465686"
+    sacem:
+      - "Mexican - Babe Ruth"
 
   - nom: "Mushroom"
     nom_complet: "Becoming Insane - Infected Mushroom"
@@ -233,6 +297,8 @@ morceaux:
     fatigant: ""
     tricote: ""
     discord: "1232317636273246219"
+    sacem:
+      - "Becoming Insane - Infected Mushroom"
 
   - nom: "Nothing Else Matters"
     nom_complet: "Nothing Else Matters - Metallica"
@@ -242,6 +308,8 @@ morceaux:
     tricote: ""
     deux-basses: true
     discord: "1000804829439987863"
+    sacem:
+      - "Nothing Else Matters - Metallica"
 
   - nom: "Pony"
     nom_complet: "Pony - Deluxe"
@@ -250,6 +318,8 @@ morceaux:
     fatigant: ""
     tricote: ""
     discord: "1288246838666985532"
+    sacem:
+      - "Pony - Deluxe"
 
   - nom: "Pressure in my head"
     nom_complet: "Mashup Pressure Muse et In my head Qotsa"
@@ -258,6 +328,9 @@ morceaux:
     fatigant: ""
     tricote: ""
     discord: "1000804890454540310"
+    sacem:
+      - "Pressure - Muse"
+      - "In My Head - Queens of the Stone Age"
 
   - nom: "Radio Video"
     nom_complet: "Radio Video - System of a Down"
@@ -266,6 +339,8 @@ morceaux:
     fatigant: ""
     tricote: ""
     discord: "1000804953322967101"
+    sacem:
+      - "Radio/Video - System of a Down"
 
   - nom: "Rodrigo"
     nom_complet: "Medley Rodrigo y Gabriela"
@@ -274,6 +349,9 @@ morceaux:
     fatigant: "basse"
     tricote: ""
     discord: "1000805052962852904"
+    sacem:
+      - "Tamacun - Rodrigo y Gabriela"
+      - "Diablo Rojo - Rodrigo y Gabriela"
 
   - nom: "Schrodinger"
     nom_complet: "Schrodinger - Anakronic Electro Orkestra"
@@ -283,6 +361,8 @@ morceaux:
     tricote: ""
     deux-basses: true
     discord: "1000805121590054952"
+    sacem:
+      - "Schrodinger - Anakronic Electro Orkestra"
 
   - nom: "Shanti"
     nom_complet: "Shanti Shanti - Baby Metal"
@@ -291,14 +371,18 @@ morceaux:
     fatigant: ""
     tricote: ""
     discord: "1000805199260164146"
+    sacem:
+      - "Shanti Shanti Shanti - Baby Metal"
 
   - nom: "Sledge"
-    nom_complet: "Dance with the dead - Sledge"
+    nom_complet: "Sledge - Dance with the dead"
     type: standard
     tags: [pas-debut]
     fatigant: ""
     tricote: ""
     discord: "1168859027502018601"
+    sacem:
+      - "Sledge - Dance with the Dead"
 
   - nom: "Starlight"
     nom_complet: "Starlight - Supermen Lovers"
@@ -307,6 +391,8 @@ morceaux:
     fatigant: ""
     tricote: ""
     discord: "1000805409554190368"
+    sacem:
+      - "Starlight - Supermen Lovers"
 
   - nom: "Sur la planche"
     nom_complet: "Sur la planche - La Femme"
@@ -315,6 +401,8 @@ morceaux:
     fatigant: ""
     tricote: ""
     discord: "1000805474997911613"
+    sacem:
+      - "Sur la planche - Marlon Magnée, Sacha Got"
 
   - nom: "The Bay"
     nom_complet: "The Bay - Metronomy"
@@ -323,6 +411,8 @@ morceaux:
     fatigant: ""
     tricote: ""
     discord: "1000805605365264415"
+    sacem:
+      - "The Bay - Metronomy"
 
   - nom: "Thunderstruck"
     nom_complet: "Thunderstruck - AC/DC"
@@ -331,6 +421,8 @@ morceaux:
     fatigant: ""
     tricote: ""
     discord: "1000805664307818656"
+    sacem:
+      - "Thunderstruck - AC/DC"
 
   - nom: "Thrill of the Night"
     nom_complet: "Thrill of the Night - Sébastien Tellier"
@@ -339,6 +431,8 @@ morceaux:
     fatigant: ""
     tricote: "sax"
     discord: "1492936228935438497"
+    sacem:
+      - "Thrill of the Night - Sébastien Tellier"
 
   - nom: "Time is running out"
     nom_complet: "Time is running out - Muse"
@@ -347,6 +441,8 @@ morceaux:
     fatigant: ""
     tricote: ""
     discord: "1443555395695153172"
+    sacem:
+      - "Time Is Running Out - Muse"
 
   - nom: "Toccata"
     nom_complet: "Toccata - Overwerk"
@@ -355,14 +451,18 @@ morceaux:
     fatigant: ""
     tricote: ""
     discord: "1000805713020469429"
+    sacem:
+      - "Toccata - Overwerk"
 
-  - nom: "Tous les memes"
-    nom_complet: "Tous les memes - Stromae"
+  - nom: "Tous les mêmes"
+    nom_complet: "Tous les mêmes - Stromae"
     type: debut
     tags: []
     fatigant: ""
     tricote: ""
     discord: "1000805759736631347"
+    sacem:
+      - "Tous Les Mêmes - Stromae"
 
   - nom: "Turbo Killer"
     nom_complet: "Turbo Killer - Carpenter Brut"
@@ -371,6 +471,8 @@ morceaux:
     fatigant: ""
     tricote: ""
     discord: "1000805829810856137"
+    sacem:
+      - "Turbo Killer - Carpenter Brut"
 
   - nom: "Uptown Funk"
     nom_complet: "Uptown Funk - Mark Ronson ft Bruno Mars"
@@ -379,6 +481,8 @@ morceaux:
     fatigant: ""
     tricote: ""
     discord: "1000805885100167168"
+    sacem:
+      - "Uptown Funk - Mark Ronson, Bruno Mars"
 
   - nom: "War"
     nom_complet: "War - Hypnotic Brass Ensemble"
@@ -387,6 +491,8 @@ morceaux:
     fatigant: ""
     tricote: ""
     discord: "1000805992554037459"
+    sacem:
+      - "War - Hypnotic Brass Ensemble"
 
   - nom: "Whisper to me"
     nom_complet: "Whisper to me - General Elektriks"
@@ -395,6 +501,8 @@ morceaux:
     fatigant: ""
     tricote: ""
     discord: "1389218207004491887"
+    sacem:
+      - "Whisper to Me - General Elektriks"
 
   - nom: "Womanizer"
     nom_complet: "Womanizer - Britney Spears"
@@ -403,3 +511,5 @@ morceaux:
     fatigant: ""
     tricote: ""
     discord: "1419034218607939604"
+    sacem:
+      - "Womanizer - Britney Spears"

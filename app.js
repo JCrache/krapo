@@ -72,6 +72,7 @@
       tricote: typeof m.tricote === "string" ? m.tricote : "",
       deuxBasses: !!m["deux-basses"],
       discord: typeof m.discord === "string" ? m.discord : "",
+      sacem: Array.isArray(m.sacem) ? m.sacem.filter((s) => typeof s === "string" && s.trim()) : [],
     };
   }
 
@@ -914,6 +915,7 @@
   // ── Init ───────────────────────────────────────────────────────────
   const btnToggleCompact = document.getElementById("btn-toggle-compact");
   const btnCopierRepertoire = document.getElementById("btn-copier-repertoire");
+  const btnCopierSacem = document.getElementById("btn-copier-sacem");
 
   btnGenerer.disabled = true;
   btnGenerer.addEventListener("click", () => {
@@ -987,6 +989,18 @@
       .sort((a, b) => a.localeCompare(b, "fr", { sensitivity: "base" }))
       .join("\n");
     copierTexte(texte, btnCopierRepertoire);
+  });
+
+  btnCopierSacem.addEventListener("click", () => {
+    const oeuvres = [...new Set(
+      repertoire.flatMap((m) => m.sacem)
+    )]
+      .sort((a, b) => a.localeCompare(b, "fr", { sensitivity: "base" }));
+    if (oeuvres.length === 0) {
+      copierTexte("", btnCopierSacem);
+      return;
+    }
+    copierTexte(oeuvres.join("\n"), btnCopierSacem);
   });
 
   chargerRepertoire();
