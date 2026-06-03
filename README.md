@@ -25,6 +25,8 @@ morceaux:
     tricote: "sax"        # optionnel, string : difficile au saxophone
     deux-basses: true     # optionnel, booléen : nécessite 2 personnes à la basse
     discord: "1234567890" # optionnel, id du salon Discord associé au morceau
+    sacem:                # optionnel, liste de titres originaux pour déclaration Sacem
+      - "Titre original - Auteur(s)"
 ```
 
 ### Catégories (`type`)
@@ -128,6 +130,7 @@ Lors de la génération de plusieurs set-lists simultanément, un morceau n'est 
 
 - **🏷️ Détails / Émojis** : bascule entre l'affichage complet des badges (type + tags en texte) et un affichage compact avec uniquement des émojis représentatifs.
 - **📋 Répertoire** : copie dans le presse-papiers la liste complète du répertoire (noms complets, triée par ordre alphabétique) pour la partager facilement.
+- **📋 Export Sacem** : copie dans le presse-papiers la liste plate de tous les titres originaux renseignés dans le champ `sacem`, dédupliquée et triée alphabétiquement, pour faciliter la déclaration à la Sacem.
 
 ## Copie des set-lists
 
@@ -151,3 +154,20 @@ Des boutons globaux « Copier tout » permettent de copier l'ensemble des set-li
 
 - Utilisé pour la copie au format Discord (`<#id>`).
 - Si absent, le nom du morceau est utilisé à la place lors de la copie Discord.
+
+## Attribut `sacem`
+
+`sacem` est une **liste de chaînes de caractères** optionnelle contenant les titres originaux du morceau avec leurs auteurs, au format libre.
+
+- Utilisé uniquement par le bouton **📋 Export Sacem** pour la déclaration à la Sacem.
+- Peut contenir plusieurs entrées (utile pour les medleys).
+- Si absent ou vide, le morceau n'apparaît pas dans l'export Sacem.
+
+Exemple :
+
+```yaml
+- nom: "Daft Punk"
+  sacem:
+    - "Harder Better Faster Stronger - Daft Punk"
+    - "Aerodynamics - Daft Punk"
+```
