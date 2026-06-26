@@ -5,6 +5,11 @@
   let repertoire = []; // tableau de { nom, type, tags?, fatigant?, discord? }
   let dernieresSetlists = []; // stocke les set-lists générées pour la copie
 
+  // ── État diaporama ──────────────────────────────────────────────────────
+  let ordreDiaporama = []; // morceaux mélangés pour le diaporama
+  let indexDiaporama = 0;  // position courante dans ordreDiaporama
+  let diaporamaOuvert = false;
+
   // ── DOM refs ───────────────────────────────────────────────────────
   const nbSetlistsInput = document.getElementById("nb-setlists");
   const tailleSetlistInput = document.getElementById("taille-setlist");
@@ -56,9 +61,11 @@
       }
       repertoire = data.morceaux.map(normaliserMorceau);
       btnGenerer.disabled = false;
+      btnDiaporama.disabled = false;
     } catch (err) {
       afficherAlerte("Erreur au chargement du répertoire : " + err.message);
       btnGenerer.disabled = true;
+      btnDiaporama.disabled = true;
     }
   }
 
@@ -912,10 +919,46 @@
 
   }
 
+  // ── Diaporama ──────────────────────────────────────────────────────
+  function afficherMorceauDiaporama() {
+    const m = ordreDiaporama[indexDiaporama];
+    diaporamaNom.textContent = m.nom;
+    diaporamaCompteur.textContent = `${indexDiaporama + 1} / ${ordreDiaporama.length}`;
+  }
+
+  function ouvrirDiaporama() {
+    if (repertoire.length === 0) return;
+    ordreDiaporama = shuffle(repertoire);
+    indexDiaporama = 0;
+    diaporamaOuvert = true;
+    diaporamaOverlay.style.display = "flex";
+    afficherMorceauDiaporama();
+    history.pushState({ diaporama: true }, "");
+  }
+
+  function avancerDiaporama() {
+    indexDiaporama++;
+    if (indexDiaporama >= ordreDiaporama.length) {
+      ordreDiaporama = shuffle(repertoire);
+      indexDiaporama = 0;
+    }
+    afficherMorceauDiaporama();
+  }
+
+  function fermerDiaporama() {
+    diaporamaOuvert = false;
+    diaporamaOverlay.style.display = "none";
+  }
+
   // ── Init ───────────────────────────────────────────────────────────
   const btnToggleCompact = document.getElementById("btn-toggle-compact");
   const btnCopierRepertoire = document.getElementById("btn-copier-repertoire");
   const btnCopierSacem = document.getElementById("btn-copier-sacem");
+  const btnDiaporama = document.getElementById("btn-diaporama");
+  const diaporamaOverlay = document.getElementById("diaporama-overlay");
+  const diaporamaNom = document.getElementById("diaporama-nom");
+  const diaporamaCompteur = document.getElementById("diaporama-compteur");
+  const diaporamaClose = document.getElementById("diaporama-close");
 
   btnGenerer.disabled = true;
   btnGenerer.addEventListener("click", () => {
@@ -1001,6 +1044,23 @@
       return;
     }
     copierTexte(oeuvres.join("\n"), btnCopierSacem);
+  });
+
+  btnDiaporama.disabled = true;
+  btnDiaporama.addEventListener("click", ouvrirDiaporama);
+
+  diaporamaOverlay.addEventListener("click", (e) => {
+    if (diaporamaClose.contains(e.target)) return;
+    avancerDiaporama();
+  });
+
+  diaporamaClose.addEventListener("click", (e) => {
+    e.stopPropagation();
+    history.back();
+  });
+
+  window.addEventListener("popstate", () => {
+    if (diaporamaOuvert) fermerDiaporama();
   });
 
   chargerRepertoire();

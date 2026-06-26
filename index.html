@@ -49,6 +49,7 @@
       <button type="button" id="btn-toggle-compact" class="btn-toolbar" title="Affichage compact (émojis uniquement)">🏷️ Détails</button>
       <button type="button" id="btn-copier-repertoire" class="btn-toolbar btn-copier" title="Copier le répertoire complet (noms + artistes, ordre alphabétique)">📋 Répertoire</button>
       <button type="button" id="btn-copier-sacem" class="btn-toolbar btn-copier" title="Copier la liste des titres originaux pour la déclaration Sacem">📋 Export Sacem</button>
+      <button type="button" id="btn-diaporama" class="btn-toolbar" title="Afficher les morceaux dans un ordre aléatoire" disabled>🎲 Aléatoire</button>
     </div>
 
     <div id="alerte" class="alerte" hidden></div>
@@ -71,6 +72,15 @@
   <footer class="container">
     <small>Répertoire chargé depuis <code>repertoire.yml</code></small>
   </footer>
+
+  <div id="diaporama-overlay">
+    <button type="button" id="diaporama-close" title="Fermer (retour arrière)">✕</button>
+    <div id="diaporama-content">
+      <p id="diaporama-nom"></p>
+      <p id="diaporama-compteur"></p>
+    </div>
+    <p id="diaporama-hint">Appuie n'importe où pour passer au suivant</p>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/js-yaml@4/dist/js-yaml.min.js"></script>
   <script src="app.js"></script>
