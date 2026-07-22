@@ -919,6 +919,24 @@
 
   }
 
+  // ── Easter egg #7 ──────────
+  const CR_HASH = "3c51c154d3f68e66df68731b37dbe220519d1f378bc9565178ced2498b0684f3";
+
+  async function sha256Hex(str) {
+    const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, "0")).join("");
+  }
+
+  function afficherSunmoji() {
+    const overlay = document.createElement("div");
+    overlay.className = "easter-sunmoji";
+    const sunmoji = document.createElement("span");
+    sunmoji.textContent = "\u2600\uFE0F";
+    overlay.appendChild(sunmoji);
+    document.body.appendChild(overlay);
+    overlay.addEventListener("click", () => overlay.remove(), { once: true });
+  }
+
   // ── Diaporama ──────────────────────────────────────────────────────
   function afficherMorceauDiaporama() {
     const m = ordreDiaporama[indexDiaporama];
@@ -961,7 +979,7 @@
   const diaporamaClose = document.getElementById("diaporama-close");
 
   btnGenerer.disabled = true;
-  btnGenerer.addEventListener("click", () => {
+  btnGenerer.addEventListener("click", async () => {
     // Easter egg #1 — Spam grenouilles
     if (spamBloque) return;
     if (detecterSpam()) {
@@ -1003,6 +1021,14 @@
       if (estMorse) appliquerTerminator();
       return;
     }
+
+    // Easter egg #7
+    try {
+      if ((await sha256Hex("krapos:" + nb + "x" + t)) === CR_HASH) {
+        afficherSunmoji();
+        return;
+      }
+    } catch (_) { /* crypto.subtle indisponible : on ignore */ }
 
     // Génération normale
     genererToutesSetlists();

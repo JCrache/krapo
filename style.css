@@ -516,6 +516,30 @@ footer {
   to   { transform: scale(1.15); }
 }
 
+/* === Easter egg #7 === */
+.easter-sunmoji {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: #87ceeb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.easter-sunmoji span {
+  font-size: 10rem;
+  line-height: 1;
+  user-select: none;
+  animation: pulse-sunmoji 2s ease-in-out infinite alternate;
+}
+
+@keyframes pulse-sunmoji {
+  from { transform: scale(1);    filter: brightness(1); }
+  to   { transform: scale(1.08); filter: brightness(1.15); }
+}
+
 /* === Easter egg : bière === */
 .easter-biere {
   text-align: center;
