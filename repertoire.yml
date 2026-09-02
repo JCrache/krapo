@@ -3,6 +3,7 @@
 # Format de chaque morceau :
 #   - nom: "..."             (obligatoire)
 #     nom_complet: "..."     (optionnel, titre + artiste pour le partage du répertoire)
+#     date: "2015"           (optionnel, année à partir de laquelle le morceau est joué ; "???" si inconnue)
 #     type: debut|teuf|connu|choree|chill|rappel|standard   (optionnel, défaut: standard)
 #     tags: [debut, teuf, connu, choree, chill, rappel, nouveau, pas-debut]  (optionnel)
 #     fatigant: "instrument" (optionnel, chaîne ; non vide => interdit en 2e moitié de set)
@@ -22,6 +23,7 @@
 morceaux:
   - nom: "8 bit"
     nom_complet: "8 Bit Adventure - Adhesive wombat"
+    date: "2015"
     type: standard
     tags: [debut, chill]
     fatigant: ""
@@ -32,6 +34,7 @@ morceaux:
 
   - nom: "Biffy"
     nom_complet: "Victory Over the Sun - Biffy Clyro"
+    date: "2018"
     type: standard
     tags: [debut, teuf, rappel]
     fatigant: ""
@@ -42,6 +45,7 @@ morceaux:
 
   - nom: "Bonfire"
     nom_complet: "Bonfire - Knife Party"
+    date: "2017"
     type: standard
     tags: [debut]
     fatigant: ""
@@ -52,6 +56,7 @@ morceaux:
 
   - nom: "Canned Heat"
     nom_complet: "Canned Heat - Jamiroquai"
+    date: "???"
     type: choree
     tags: []
     fatigant: ""
@@ -62,6 +67,7 @@ morceaux:
 
   - nom: "Chirouble"
     nom_complet: "Within Temptation - Mother Earth"
+    date: "2026"
     type: standard
     tags: []
     fatigant: ""
@@ -72,6 +78,7 @@ morceaux:
 
   - nom: "Daft Punk"
     nom_complet: "Medley - Daft Punk"
+    date: "???"
     type: teuf
     tags: [rappel, connu]
     fatigant: ""
@@ -84,6 +91,7 @@ morceaux:
 
   - nom: "D.a.n.c.e"
     nom_complet: "D.a.n.c.e - Justice"
+    date: "???"
     type: standard
     tags: [connu]
     fatigant: ""
@@ -94,6 +102,7 @@ morceaux:
 
   - nom: "Day Break"
     nom_complet: "Day Break - Overwerk"
+    date: "2019"
     type: standard
     tags: [debut, connu, chill]
     fatigant: ""
@@ -104,6 +113,7 @@ morceaux:
 
   - nom: "DjiDji"
     nom_complet: "Gigi in paradisco - Dalida"
+    date: "2022"
     type: connu
     tags: []
     fatigant: ""
@@ -114,6 +124,7 @@ morceaux:
 
   - nom: "Foals"
     nom_complet: "Medley Foals"
+    date: "???"
     type: standard
     tags: []
     fatigant: ""
@@ -126,6 +137,7 @@ morceaux:
 
   - nom: "Fuya"
     nom_complet: "Fuya - C2C"
+    date: "???"
     type: chill
     tags: [choree]
     fatigant: ""
@@ -136,6 +148,7 @@ morceaux:
 
   - nom: "Ghost in the Shell"
     nom_complet: "Ghost in the Shell - B.O."
+    date: "2015"
     type: chill
     tags: []
     fatigant: ""
@@ -146,6 +159,7 @@ morceaux:
 
   - nom: "Giorgio"
     nom_complet: "Giorgio by Moroder - Daft Punk"
+    date: "2017"
     type: standard
     tags: [chill, connu]
     fatigant: ""
@@ -156,6 +170,7 @@ morceaux:
 
   - nom: "Gnossienne"
     nom_complet: "Gnossienne - Erik Satie"
+    date: "2010"
     type: rappel
     tags: []
     fatigant: ""
@@ -166,6 +181,7 @@ morceaux:
 
   - nom: "Going the Distance"
     nom_complet: "Going the Distance - Bill Conti"
+    date: "2015"
     type: chill
     tags: [debut, connu]
     fatigant: ""
@@ -176,6 +192,7 @@ morceaux:
 
   - nom: "Goldfish"
     nom_complet: "Medley Goldfish"
+    date: "2026"
     type: standard
     tags: [nouveau]
     fatigant: ""
@@ -187,6 +204,7 @@ morceaux:
 
   - nom: "Helicopter"
     nom_complet: "Helicopter - Bloc Party"
+    date: "2016"
     type: standard
     tags: [choree]
     fatigant: ""
@@ -197,6 +215,7 @@ morceaux:
 
   - nom: "Hybrid Stigmata"
     nom_complet: "Hybrid Stigmata - Dimmu Borgir"
+    date: "2010"
     type: standard
     tags: []
     fatigant: ""
@@ -207,6 +226,7 @@ morceaux:
 
   - nom: "I feel love"
     nom_complet: "I feel love - Marc Almond & Jimmy Somerville"
+    date: "2024"
     type: standard
     tags: []
     fatigant: ""
@@ -217,6 +237,7 @@ morceaux:
 
   - nom: "Lone Digger"
     nom_complet: "Lone Digger - Caravan Palace"
+    date: "2015"
     type: standard
     tags: [connu]
     fatigant: ""
@@ -227,6 +248,7 @@ morceaux:
 
   - nom: "Magnolias forever"
     nom_complet: "Magnolias forever - Claude François"
+    date: "2018"
     type: connu
     tags: []
     fatigant: "tp"
@@ -237,6 +259,7 @@ morceaux:
 
   - nom: "Major Lazer"
     nom_complet: "Medley Major Lazer"
+    date: "2018"
     type: chill
     tags: [connu, choree]
     fatigant: ""
@@ -251,6 +274,7 @@ morceaux:
 
   - nom: "Maniac"
     nom_complet: "Maniac - Michael Sembello"
+    date: "2024"
     type: choree
     tags: [connu]
     fatigant: ""
@@ -261,6 +285,7 @@ morceaux:
 
   - nom: "Medley Jimmy"
     nom_complet: "Medley Jimmy Somerville"
+    date: "???"
     type: connu
     tags: []
     fatigant: ""
@@ -272,6 +297,7 @@ morceaux:
 
   - nom: "Megaman"
     nom_complet: "Megaman - B.O. Dr Wily's Castle"
+    date: "2017"
     type: teuf
     tags: [rappel]
     fatigant: ""
@@ -282,6 +308,7 @@ morceaux:
 
   - nom: "Mexican"
     nom_complet: "Mexican - Babe Ruth"
+    date: "2025"
     type: debut
     tags: [chill]
     fatigant: ""
@@ -292,6 +319,7 @@ morceaux:
 
   - nom: "Mushroom"
     nom_complet: "Becoming Insane - Infected Mushroom"
+    date: "2025"
     type: teuf
     tags: [rappel]
     fatigant: ""
@@ -302,6 +330,7 @@ morceaux:
 
   - nom: "Nothing Else Matters"
     nom_complet: "Nothing Else Matters - Metallica"
+    date: "2010"
     type: chill
     tags: [connu]
     fatigant: ""
@@ -313,6 +342,7 @@ morceaux:
 
   - nom: "Pony"
     nom_complet: "Pony - Deluxe"
+    date: "2024"
     type: standard
     tags: []
     fatigant: ""
@@ -323,6 +353,7 @@ morceaux:
 
   - nom: "Pressure in my head"
     nom_complet: "Mashup Pressure Muse et In my head Qotsa"
+    date: "2019"
     type: standard
     tags: []
     fatigant: ""
@@ -334,6 +365,7 @@ morceaux:
 
   - nom: "Radio Video"
     nom_complet: "Radio Video - System of a Down"
+    date: "???"
     type: teuf
     tags: [rappel]
     fatigant: ""
@@ -344,6 +376,7 @@ morceaux:
 
   - nom: "Rodrigo"
     nom_complet: "Medley Rodrigo y Gabriela"
+    date: "???"
     type: standard
     tags: [choree, pas-debut]
     fatigant: "basse"
@@ -355,6 +388,7 @@ morceaux:
 
   - nom: "Schrodinger"
     nom_complet: "Schrodinger - Anakronic Electro Orkestra"
+    date: "2015"
     type: standard
     tags: [teuf]
     fatigant: ""
@@ -366,6 +400,7 @@ morceaux:
 
   - nom: "Shanti"
     nom_complet: "Shanti Shanti - Baby Metal"
+    date: "2019"
     type: standard
     tags: [teuf]
     fatigant: ""
@@ -376,6 +411,7 @@ morceaux:
 
   - nom: "Sledge"
     nom_complet: "Sledge - Dance with the dead"
+    date: "2023"
     type: standard
     tags: [pas-debut]
     fatigant: ""
@@ -386,6 +422,7 @@ morceaux:
 
   - nom: "Starlight"
     nom_complet: "Starlight - Supermen Lovers"
+    date: "2014"
     type: connu
     tags: [choree]
     fatigant: ""
@@ -396,6 +433,7 @@ morceaux:
 
   - nom: "Sur la planche"
     nom_complet: "Sur la planche - La Femme"
+    date: "2014"
     type: teuf
     tags: [teuf, connu, choree, rappel]
     fatigant: ""
@@ -406,6 +444,7 @@ morceaux:
 
   - nom: "The Bay"
     nom_complet: "The Bay - Metronomy"
+    date: "2017"
     type: debut
     tags: [chill]
     fatigant: ""
@@ -416,6 +455,7 @@ morceaux:
 
   - nom: "Thunderstruck"
     nom_complet: "Thunderstruck - AC/DC"
+    date: "2015"
     type: connu
     tags: []
     fatigant: ""
@@ -426,6 +466,7 @@ morceaux:
 
   - nom: "Thrill of the Night"
     nom_complet: "Thrill of the Night - Sébastien Tellier"
+    date: "2026"
     type: nouveau
     tags: [chill, rappel]
     fatigant: ""
@@ -436,6 +477,7 @@ morceaux:
 
   - nom: "Time is running out"
     nom_complet: "Time is running out - Muse"
+    date: "2025"
     type: standard
     tags: []
     fatigant: ""
@@ -446,6 +488,7 @@ morceaux:
 
   - nom: "Toccata"
     nom_complet: "Toccata - Overwerk"
+    date: "2018"
     type: teuf
     tags: []
     fatigant: ""
@@ -456,6 +499,7 @@ morceaux:
 
   - nom: "Tous les mêmes"
     nom_complet: "Tous les mêmes - Stromae"
+    date: "2014"
     type: debut
     tags: []
     fatigant: ""
@@ -466,6 +510,7 @@ morceaux:
 
   - nom: "Turbo Killer"
     nom_complet: "Turbo Killer - Carpenter Brut"
+    date: "2018"
     type: teuf
     tags: []
     fatigant: ""
@@ -476,6 +521,7 @@ morceaux:
 
   - nom: "Uptown Funk"
     nom_complet: "Uptown Funk - Mark Ronson ft Bruno Mars"
+    date: "2015"
     type: connu
     tags: [choree, chill]
     fatigant: ""
@@ -486,6 +532,7 @@ morceaux:
 
   - nom: "War"
     nom_complet: "War - Hypnotic Brass Ensemble"
+    date: "2011"
     type: choree
     tags: [chill]
     fatigant: ""
@@ -496,6 +543,7 @@ morceaux:
 
   - nom: "Whisper to me"
     nom_complet: "Whisper to me - General Elektriks"
+    date: "2025"
     type: standard
     tags: []
     fatigant: ""
@@ -506,6 +554,7 @@ morceaux:
 
   - nom: "Womanizer"
     nom_complet: "Womanizer - Britney Spears"
+    date: "2025"
     type: connu
     tags: [chorée, debut]
     fatigant: ""
